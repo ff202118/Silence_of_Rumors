@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../static/css/top_nav.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/nav.css">
+
+
+    <title></title>
+
+</head>
+
+<body>
+
+<div class="div-nav">
+    <nav class="nav">
+        <input type="radio" name="nav-item-opt" id="nav-item-opt-1" checked>
+        <label class="nav-item" for="nav-item-opt-1">蛛丝马迹</label>
+
+        <input type="radio" name="nav-item-opt" id="nav-item-opt-2">
+        <label class="nav-item" for="nav-item-opt-2">智能分析</label>
+
+        <input type="radio" name="nav-item-opt" id="nav-item-opt-3">
+        <label class="nav-item" for="nav-item-opt-3">热点关注</label>
+
+        <label class="nav-item" >关于我们</label>
+        <div class="tracker"></div>
+    </nav>
+</div>
+
+
+<div id="sidebar" onclick="togglebar()">
+    <div class="toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <ul>
+        <a href="#">
+            <li class="button active">home</li>
+        </a>
+        <a href="#">
+            <li class="button">1</li>
+        </a>
+        <a href="#">
+            <li class="button">2</li>
+        </a>
+    </ul>
+</div>
+
+
+<script src="../static/js/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="../static/js/bootstrap.bundle.min.js" integrity="sha384-7ymO4nGrkm372HoSbq1OY2DP4pEZnMiA+E0F3zPr+JQQtQ82gQ1HPY3QIVtztVua" crossorigin="anonymous"></script>
+<script>
+    function togglebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+</script>
+</body>
+</html>
