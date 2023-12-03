@@ -24,15 +24,13 @@
 /*    background: var(--bg-color);*/
 /*}*/
 
-.div-nav{
-    background-color: #9fcdff;
-}
 
 .nav {
+    margin-left: 300px;
+    float:left;
     width: 400px;
-    margin-left: 350px;
     position: relative;
-    background: #9fcdff;
+    /*background: #ffffff;*/
     border-radius: 24px;
     font-size: 0;
     padding: var(--nav-item-border-width) 0 0 0;
@@ -43,6 +41,7 @@
     width: var(--nav-item-width);
     height: var(--nav-item-height);
     font-size: 16px;
+    font-weight: bold;
     color: var(--main-color);
     display: inline-flex;
     justify-content: center;
