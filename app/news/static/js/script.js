@@ -33,6 +33,7 @@ const toggleSidebar = () => {
   sidebar.classList.toggle('close')
 }
 
+
 if (window.innerWidth < 800) {
   sidebar.classList.add('close')
   sidebar.classList.remove('locked')

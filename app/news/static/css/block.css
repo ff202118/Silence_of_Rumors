@@ -1,0 +1,108 @@
+.top_block {
+    position: absolute;
+    top: 82px;
+    left: 255px;
+    width: 1050px;
+    height: 111px;
+    border: 1px solid #3594B8;
+    background: #EAF7FB;
+}
+
+.top_block_item {
+    display: flex;
+    margin-left: 40px;
+    float: left;
+    width: 260px;
+    height: 50px;
+    /*justify-content: center;*/
+    align-items: center;
+}
+
+.top_block_item_title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.top_block_item_content {
+    margin-left: 20px;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+}
+
+.top_block_item_select {
+    padding: 5px;
+    margin-left: 20px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    text-align: center;
+}
+
+.top_block_item_button {
+    margin-left: 8px;
+    padding: 5px 10px;
+    font-size: 13px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+/* 鼠标悬停时的样式 */
+button:hover {
+    background-color: #2980b9;
+}
+
+/* 获得焦点时的样式 */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* 按下时的样式 */
+button:active {
+    transform: translateY(1px);
+}
+
+/* 禁用状态的样式 */
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 基本输入框样式 */
+.top_block_item_text {
+    margin-left: 20px;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* 获得焦点时的样式 */
+.top_block_item_text:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* 禁用状态的样式 */
+.top_block_item_text:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.inner_block{
+    position: absolute;
+    top: 120px;
+    width: 1050px;
+    height: 30px;
+    border: 1px solid #3594B8;
+    background: #EAF7FB;
+}

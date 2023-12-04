@@ -97,10 +97,11 @@ body {
 .menu_title{
   position: relative;
   width: 170px;
-  height: 50px;
+  height: 40px;
 }
 
 .menu_title .title{
+  font-weight: bold;
  margin-left: 15px;
 }
 .sidebar.close .title {
@@ -131,14 +132,13 @@ body {
 .link{
   border-radius: 8px;
   /*margin-bottom: 1px;*/
-
   text-decoration: none;
   color: #707070;
 }
 
 .link i{
   min-width: 55px;
-  height: 50px;
+  height: 40px;
   display: flex;
   font-size: 22px;
   justify-content: center;
@@ -250,4 +250,8 @@ body {
   #sidebar-open{
     display: block;
   }
+}
+
+.linkname{
+  font-weight: 520;
 }

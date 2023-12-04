@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+    <link rel="stylesheet" href="{{ url_for('news.static', filename='css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url_for('news.static', filename='css/top_nav.css') }}">
-    <!--    <link rel="stylesheet" href="{{ url_for('news.static', filename='css/bootstrap.min.css') }}"-->
-    <!--          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="{{ url_for('news.static', filename='css/nav.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
-    <title></title>
+    <!--    <link rel="stylesheet" href="{{ url_for('news.static', filename='css/bootstrap.min.css') }}">-->
+    <link rel="stylesheet" href="{{ url_for('news.static', filename='css/block.css') }} ">
+    <!--    <title></title>-->
     <script src="{{ url_for('news.static', filename='js/script.js') }}" defer></script>
 
 </head>
@@ -45,6 +45,7 @@
     </nav>
 </div>
 
+
 <nav class="sidebar locked">
     <div class="logo_items flex">
       <span class="nav_image">
@@ -67,13 +68,13 @@
                 <li class="item">
                     <a href="#" class="link flex">
                         <i class="bx bx-home-alt"></i>
-                        <span>最新上传</span>
+                        <span class="linkname">最新上传</span>
                     </a>
                 </li>
                 <li class="item">
                     <a href="#" class="link flex">
                         <i class="bx bx-grid-alt"></i>
-                        <span>最受关注</span>
+                        <span class="linkname">最受关注</span>
                     </a>
                 </li>
             </ul>
@@ -86,19 +87,19 @@
                 <li class="item">
                     <a href="#" class="link flex">
                         <i class="bx bxs-magic-wand"></i>
-                        <span>社会</span>
+                        <span class="linkname">社会</span>
                     </a>
                 </li>
                 <li class="item">
                     <a href="#" class="link flex">
                         <i class="bx bx-folder"></i>
-                        <span>国际</span>
+                        <span class="linkname">国际</span>
                     </a>
                 </li>
                 <li class="item">
                     <a href="#" class="link flex">
                         <i class="bx bx-cloud-upload"></i>
-                        <span>其他</span>
+                        <span class="linkname">其他</span>
                     </a>
                 </li>
             </ul>
@@ -112,21 +113,21 @@
                 <li class="item">
                     <a href="#" class="link flex">
                         <i class="bx bx-flag"></i>
-                        <span>官方辟谣</span>
+                        <span class="linkname">官方辟谣</span>
                     </a>
                 </li>
                 <li class="item">
                     <a href="#" class="link flex">
                         <i class="bx bx-award"></i>
-                        <span>追根溯源</span>
+                        <span class="linkname">追根溯源</span>
                     </a>
                 </li>
-<!--                <li class="item">-->
-<!--                    <a href="#" class="link flex">-->
-<!--                        <i class="bx bx-cog"></i>-->
-<!--                        <span>Setting</span>-->
-<!--                    </a>-->
-<!--                </li>-->
+                <!--                <li class="item">-->
+                <!--                    <a href="#" class="link flex">-->
+                <!--                        <i class="bx bx-cog"></i>-->
+                <!--                        <span>Setting</span>-->
+                <!--                    </a>-->
+                <!--                </li>-->
             </ul>
         </div>
         <div class="sidebar_profile flex">
@@ -141,7 +142,109 @@
     </div>
 </nav>
 
+<div class="top_block">
+    <div class="top_block_item" style="width: 200px;">
+        <span class="top_block_item_title">可信度:</span>
+        <a href="#" class="top_block_item_content">全部</a>
+        <a href="#" class="top_block_item_content">高</a>
+        <a href="#" class="top_block_item_content">中</a>
+        <a href="#" class="top_block_item_content">低</a>
+    </div>
+    <div class="top_block_item" style="width: 180px">
+        <span class="top_block_item_title">发布者:</span>
+        <a href="#" class="top_block_item_content">官方媒体</a>
+        <a href="#" class="top_block_item_content">其它</a>
+    </div>
+
+    <div class="top_block_item" style="width: 400px;">
+        <span class="top_block_item_title">地区:</span>
+
+        <select class="top_block_item_select" id="sltProvince" onchange="loadCity()">
+            <!---  <option>北京市</option>
+            onchange 1.下拉框层次改变
+                     2.输入框
+            -->
+        </select>
+        <select class="top_block_item_select" style="margin-left: 3px;" id="sltCity">
+        </select>
+        <button class="top_block_item_button">确认</button>
+    </div>
+
+    <div class="top_block_item" style="width: 210px;">
+        <span class="top_block_item_title">来源:</span>
+        <a href="#" class="top_block_item_content">全部</a>
+        <a href="#" class="top_block_item_content">凤凰网</a>
+        <a href="#" class="top_block_item_content">微博</a>
+    </div>
+    <div class="top_block_item" style="width: 260px;margin-left: 30px;">
+        <span class="top_block_item_title">时间:</span>
+        <a href="#" class="top_block_item_content">今日</a>
+        <a href="#" class="top_block_item_content">近3天</a>
+        <a href="#" class="top_block_item_content">近7天</a>
+        <a href="#" class="top_block_item_content">近30天</a>
+    </div>
+    <div class="top_block_item" style="width: 400px;">
+        <span class="top_block_item_title">查找:</span>
+        <input class="top_block_item_text" type="text" name="search" id="search" placeholder="请输入搜索关键字">
+        <button class="top_block_item_button">搜索</button>
+    </div>
+
+    <div class="inner_block">
+
+    </div>
+</div>
+
 </body>
 
 
 </html>
+
+
+<script>
+    //定义存放所有省份数据的数组
+    var provinceList = ["--请选择--", "北京市", "江西省", "湖北省"];
+
+    //定义存放所有市数据的二维数组
+    var cityList = [
+        ["--请选择--"],
+        ["东城区", "西城区", "朝阳区"],
+        ["南昌市", "九江市", "上饶市"],
+        ["武汉市", "荆州市"],
+    ];
+
+
+    //定义加载省份下拉框的方法loadProvince
+    function loadProvince() {
+        //遍历provinceList数组中的元素
+        //动态增加选项option到下拉框sltProvince中
+        //1.1获得省份下拉框对象
+        var sltProvince = document.getElementById("sltProvince");
+        //1.2设置省份下拉框下拉选项的个数
+        sltProvince.length = provinceList.length;
+        //1.3遍历provinceList数组
+        for (var i = 0; i < provinceList.length; i++) {
+            //设置下拉框选项显示的内容
+            sltProvince.options[i].text = provinceList[i];
+        }
+    }
+
+    //定义根据当前选择的省份，加载对应市下拉框数据的方法
+    function loadCity() {
+        //1.获得所选择的省份选项序号
+        var idx = document.getElementById("sltProvince").selectedIndex;
+
+        //2.从cityList数组中，取idx行所在的数据
+        var cityData = cityList[idx];
+
+        //3.遍历cityData中的数据，载入到市下拉框sltCity中
+        var sltCity = document.getElementById("sltCity");
+        sltCity.length = cityData.length;
+        for (var i = 0; i < cityData.length; i++) {
+            sltCity.options[i].text = cityData[i];
+        }
+    }
+
+    //执行加载省份下拉框的方法
+    loadProvince();
+</script>
+
