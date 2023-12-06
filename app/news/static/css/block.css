@@ -2,7 +2,7 @@
     position: absolute;
     top: 82px;
     left: 255px;
-    width: 1050px;
+    width: 1080px;
     height: 111px;
     border: 1px solid #3594B8;
     background: #EAF7FB;
@@ -100,9 +100,72 @@ button:disabled {
 
 .inner_block{
     position: absolute;
-    top: 120px;
-    width: 1050px;
-    height: 30px;
-    border: 1px solid #3594B8;
-    background: #EAF7FB;
+    top: 200px;
+    left: 255px;
+    /*width: 1080px;*/
+    /*height: 111px;*/
+    /*border: 1px solid #3594B8;*/
+    /*background: #EAF7FB;*/
+}
+
+.inner_table{
+
+}
+
+.inner_thead{
+    background-color: #008FD7;
+}
+
+.inner_thead_th{
+    border-right: 1px solid white;
+    height: 33px;
+    color: whitesmoke;
+    font-size: 14px;
+    text-align: center;
+}
+
+.inner_thead_td{
+    margin-left: 5px;
+}
+
+.td_title{
+    margin: 2px 0 2px;
+    font-size: 14.5px;
+    color: #2E93FF;
+}
+
+.td_content{
+    font-size: 11.5px;
+    color: gray;
+}
+
+.td_medium{
+    font-size: 14.5px;
+    color: #2E93FF;
+    text-align: center;
+}
+
+.td_time{
+    font-size: 14.5px;
+    text-align: center;
+
+}
+
+.inner_degree{
+    margin: 5px 5px 5px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: mediumpurple;
+    color: white;
+    font-size: 15px;
+    /*font-weight: bold;*/
+}
+
+.td_bottom{
+    font-size: 13px;
+    color: gray;
+    margin: 2px 0 2px;
 }

@@ -7,5 +7,5 @@ bp = Blueprint('news', __name__, url_prefix='/news', static_folder='static', tem
 
 @bp.route('index/')
 def index():
-    posts = [1, ]
+    posts = [1, 2, 3, 4, 5]
     return render_template('index.html', posts=posts)

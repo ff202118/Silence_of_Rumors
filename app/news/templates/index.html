@@ -18,9 +18,8 @@
 
 <body>
 
-<div>
-    <!--    <img style=" float:left;width: 20%;height: 20%;padding-left: 100px;"-->
-    <!--         src="{{ url_for('news.static', filename='img/logo2.png') }}" alt="">-->
+{% block navbar %}
+<div style="float: left">
     <nav class="nav">
         <input type="radio" name="nav-item-opt" id="nav-item-opt-1" checked>
         <label class="nav-item" for="nav-item-opt-1">
@@ -40,12 +39,29 @@
         <label class="nav-item">
             关于我们
         </label>
-
         <div class="tracker"></div>
     </nav>
 </div>
 
+<div class="user_info">
+    <span >
+        欢迎,&nbsp;&nbsp;David Oliva&nbsp;&nbsp;
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAZFJREFUSEvt1k9LFVEUAPCf+AEqBPdRSNBGXOgiIl0EQd+gRZsgcOFSBHWnILSsjbRo4ycQhDZBfyioCMSF2qL8AEFBtTbjwDwYRufN3DtPRPCsHsw953fvfXfm3CFnFENn5MqFL2GumPQz/E5dQA58BR8xVmD7mMLfFDwFvowlPELg5fiJF1jFnzYTaAs/wFOMNBT9gcfYbMLbwMtYaSpUeT6L9X45TfA0XieiMfwIk/hSl9sPjmdfS4co1X+P2znwfWylapXxE9g+qUa/Fcdh6r2ruf4CnqTCL3EvVyzyNvAwFY5DFYerS7zC3VT4De50UfG2bvL9/uMLOGfXz89WX8cHjOYss5QTTeMWvlXrnHS4bhSnsSvaswKfwV4Zr8LRZw8QvXeQ8QtXy726Csd7G6/RaUTUftcrXIWjlX06DbW4Hn2ug4fxHNcGjH8vbiaHdfCAvfpyTTeQauZ4cauInSnHP0Tv3Wk781Q46kZ/na8Aa1hsi8a4HDjybhYfhvgdH5rdFLQLnOocG5+74s7wf3miPB/OgoyfAAAAAElFTkSuQmCC" style="width: 16px;"/>
+        登录时间:
+    </span>
+    <script>
+        var now = new Date();
+        var str = now.toLocaleTimeString();
 
+        document.write(str);
+    </script>
+
+    <button class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
+</div>
+
+{% endblock navbar %}
+
+{% block sidebar %}
 <nav class="sidebar locked">
     <div class="logo_items flex">
       <span class="nav_image">
@@ -141,7 +157,9 @@
         </div>
     </div>
 </nav>
+{% endblock sidebar %}
 
+{% block top_block %}
 <div class="top_block">
     <div class="top_block_item" style="width: 200px;">
         <span class="top_block_item_title">可信度:</span>
@@ -160,10 +178,7 @@
         <span class="top_block_item_title">地区:</span>
 
         <select class="top_block_item_select" id="sltProvince" onchange="loadCity()">
-            <!---  <option>北京市</option>
-            onchange 1.下拉框层次改变
-                     2.输入框
-            -->
+
         </select>
         <select class="top_block_item_select" style="margin-left: 3px;" id="sltCity">
         </select>
@@ -188,14 +203,76 @@
         <input class="top_block_item_text" type="text" name="search" id="search" placeholder="请输入搜索关键字">
         <button class="top_block_item_button">搜索</button>
     </div>
-
-    <div class="inner_block">
-
-    </div>
 </div>
+{% endblock top_block %}
+
+{% block inner_block %}
+<div class="inner_block">
+    <table class="inner_table">
+        <thead class="inner_thead">
+        <th scope="col" class="inner_thead_th" style="width: 50px;">可信度</th>
+        <th scope="col" class="inner_thead_th" style="width: 550px;">线索原文</th>
+        <th scope="col" class="inner_thead_th" style="width: 120px;">官方</th>
+        <th scope="col" class="inner_thead_th" style="width: 120px;">信息源</th>
+        <th scope="col" class="inner_thead_th" style="width: 120px;">实时追踪</th>
+        <th scope="col" class="inner_thead_th" style="width: 120px;">操作</th>
+        </thead>
+        {% for post in posts %}
+        <tbody>
+        <tr>
+            <td class="inner_thead_td">
+                <div class="inner_degree">
+                    86%
+                </div>
+            </td>
+            <td class="inner_thead_td">
+                <div style="margin-left: 5px">
+                    <div class="td_title">
+                        <a href="#" style="text-decoration: none;">网传天津理工大学成人招生不用考试？假的！</a>
+                    </div>
+                    <div class="td_content">
+                        #联合辟谣##微博辟谣#【网传天津理工大学成人招生不用考试？假的！】近日有网民举报，网上正在传播“天津理工大学
+                        双证本科不用考试 学信网可查”等信息。经核查，此信息为虚假宣传。此前，天津理工大学继续教育..
+                    </div>
+                    <div class="td_bottom">
+                        <div>
+                            39分钟之前&nbsp;&nbsp;&nbsp;来自:@吉林微政务
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+            <td class="inner_thead_td">
+                <div class="td_medium">
+                    <a href="#" style="text-decoration: none;">@平安盐城</a>
+                </div>
+            </td>
+            <td class="inner_thead_td">
+                <div class="td_medium">
+                    <a href="#" style="text-decoration: none;">@桓台融媒</a>
+                </div>
+            </td>
+            <td class="inner_thead_td">
+                <div class="td_time">
+                    39分钟之前
+                </div>
+
+            </td>
+            <td class="inner_thead_td">
+                <div>
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock inner_block %}
+
 
 </body>
-
 
 </html>
 
@@ -247,4 +324,5 @@
     //执行加载省份下拉框的方法
     loadProvince();
 </script>
+
 
