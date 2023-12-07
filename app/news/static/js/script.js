@@ -18,6 +18,7 @@ const toogleLock = () => {
 const hideSidebar = () => {
   if (sidebar.classList.contains('hoverable')) {
     sidebar.classList.add('close')
+
   }
 }
 
@@ -40,8 +41,11 @@ if (window.innerWidth < 800) {
   sidebar.classList.remove('hoverable')
 }
 
+
 sidebarLockBtn.addEventListener('click',toogleLock)
 sidebar.addEventListener('mouseleave',hideSidebar)
 sidebar.addEventListener('mouseenter',showSidebar)
 sidebarOpenBtn.addEventListener('click',toggleSidebar)
 sidebarCloseBtn.addEventListener('click',toggleSidebar)
+
+

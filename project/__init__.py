@@ -43,7 +43,8 @@ def create_app(test_config=None):
     # 从此处开始注册蓝图
     register_bp(app)
 
+    # 注册模型
+    from app.news import models
 
     return app
-
 

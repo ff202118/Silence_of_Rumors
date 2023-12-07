@@ -38,7 +38,8 @@ body {
   height: 100%;
   background-color: #EEEEEE;
   padding: 15px 10px;
-  box-sizing: 0 0 2px rgba(0, 0, 0, .1);
+  /*box-sizing: 0 0 2px rgba(0, 0, 0, .1);*/
+  box-sizing: border-box;
   transition: all 0.4s ease;
 }
 
