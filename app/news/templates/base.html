@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('news.static', filename='css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('news.static', filename='css/top_nav.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('news.static', filename='css/block.css') }}">
+    <script src="{{ url_for('news.static', filename='js/script.js') }}" defer></script>
+    <title>谣无音讯</title>
+</head>
+
+<body>
+
+{% block navbar %}
+<script>
+    var url1 = "{{ url_for('news.index') }}";
+    var url2 = "{{ url_for('news.detection') }}";
+    var url3 = "{{ url_for('news.analysis') }}";
+</script>
+<div style="float: left">
+    <nav class="nav">
+        <input type="radio" name="nav-item-opt" id="nav-item-opt-1" checked>
+        <label class="nav-item" for="nav-item-opt-1" onclick="window.location.href=url1;">
+            蛛丝马迹
+        </label>
+
+        <input type="radio" name="nav-item-opt" id="nav-item-opt-2">
+        <label class="nav-item" for="nav-item-opt-2" onclick="window.location.href=url2;">
+            智能分析
+        </label>
+
+        <input type="radio" name="nav-item-opt" id="nav-item-opt-3">
+        <label class="nav-item" for="nav-item-opt-3" onclick="window.location.href=url3;">
+            数读平台
+        </label>
+
+        <label class="nav-item">
+            关于我们
+        </label>
+        <div class="tracker"></div>
+    </nav>
+</div>
+
+<div class="user_info">
+    <span>
+        欢迎,&nbsp;&nbsp;David Oliva&nbsp;&nbsp;
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAZFJREFUSEvt1k9LFVEUAPCf+AEqBPdRSNBGXOgiIl0EQd+gRZsgcOFSBHWnILSsjbRo4ycQhDZBfyioCMSF2qL8AEFBtTbjwDwYRufN3DtPRPCsHsw953fvfXfm3CFnFENn5MqFL2GumPQz/E5dQA58BR8xVmD7mMLfFDwFvowlPELg5fiJF1jFnzYTaAs/wFOMNBT9gcfYbMLbwMtYaSpUeT6L9X45TfA0XieiMfwIk/hSl9sPjmdfS4co1X+P2znwfWylapXxE9g+qUa/Fcdh6r2ruf4CnqTCL3EvVyzyNvAwFY5DFYerS7zC3VT4De50UfG2bvL9/uMLOGfXz89WX8cHjOYss5QTTeMWvlXrnHS4bhSnsSvaswKfwV4Zr8LRZw8QvXeQ8QtXy726Csd7G6/RaUTUftcrXIWjlX06DbW4Hn2ug4fxHNcGjH8vbiaHdfCAvfpyTTeQauZ4cauInSnHP0Tv3Wk781Q46kZ/na8Aa1hsi8a4HDjybhYfhvgdH5rdFLQLnOocG5+74s7wf3miPB/OgoyfAAAAAElFTkSuQmCC"
+             style="width: 16px;"/>
+        登录时间:
+    </span>
+    <script>
+        var now = new Date();
+        var str = now.toLocaleTimeString();
+
+        document.write(str);
+    </script>
+
+    <button class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
+</div>
+
+{% endblock navbar %}
+
+{% block sidebar %}
+<nav class="sidebar locked">
+    <div class="logo_items flex">
+      <span class="nav_image">
+        <img style="width: 70%;" src="{{ url_for('news.static', filename='img/logo4.png') }}" alt="logo_img">
+      </span>
+        <span class="logo_name">无&nbsp;音&nbsp;讯</span>
+        <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
+        <i class="bx bx-x" id="sidebar-close"></i>
+    </div>
+    <div class="logo_en_name">
+        <span>silence of Rumors</span>
+    </div>
+    <div class="menu_container">
+        <div class="menu_items">
+            <ul class="menu_item">
+                <div class="menu_title flex">
+                    <span class="title">快速浏览</span>
+                    <span class="line"></span>
+                </div>
+                <li class="item">
+                    <a href="#" class="link flex">
+                        <i class="bx bx-home-alt"></i>
+                        <span class="linkname">最新上传</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="#" class="link flex">
+                        <i class="bx bx-grid-alt"></i>
+                        <span class="linkname">最受关注</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="menu_item">
+                <div class="menu_title flex">
+                    <span class="title">类别导航</span>
+                    <span class="line"></span>
+                </div>
+                <li class="item">
+                    <a href="#" class="link flex">
+                        <i class="bx bxs-magic-wand"></i>
+                        <span class="linkname">社会</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="#" class="link flex">
+                        <i class="bx bx-folder"></i>
+                        <span class="linkname">国际</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="#" class="link flex">
+                        <i class="bx bx-cloud-upload"></i>
+                        <span class="linkname">其他</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="menu_item">
+                <div class="menu_title flex">
+                    <span class="title">谣言溯源</span>
+                    <span class="line"></span>
+                </div>
+
+                <li class="item">
+                    <a href="#" class="link flex">
+                        <i class="bx bx-flag"></i>
+                        <span class="linkname">官方辟谣</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="#" class="link flex">
+                        <i class="bx bx-award"></i>
+                        <span class="linkname">追根溯源</span>
+                    </a>
+                </li>
+                <!--                <li class="item">-->
+                <!--                    <a href="#" class="link flex">-->
+                <!--                        <i class="bx bx-cog"></i>-->
+                <!--                        <span>Setting</span>-->
+                <!--                    </a>-->
+                <!--                </li>-->
+            </ul>
+        </div>
+        <div class="sidebar_profile flex">
+        <span class="nav_image">
+          <img src="{{ url_for('news.static', filename='img/profile.png') }}" alt="profile_img">
+        </span>
+            <div class="data_text">
+                <span class="name">David Oliva</span>
+                <span class="email">david@gmail.com</span>
+            </div>
+        </div>
+    </div>
+</nav>
+{% endblock sidebar %}
+
+
+{% block top_block %}
+<div class="top_block">
+    <div class="top_block_item" style="width: 200px;">
+        <span class="top_block_item_title">可信度:</span>
+        <a href="#" class="top_block_item_content">全部</a>
+        <a href="#" class="top_block_item_content">高</a>
+        <a href="#" class="top_block_item_content">中</a>
+        <a href="#" class="top_block_item_content">低</a>
+    </div>
+    <div class="top_block_item" style="width: 180px">
+        <span class="top_block_item_title">发布者:</span>
+        <a href="#" class="top_block_item_content">官方媒体</a>
+        <a href="#" class="top_block_item_content">其它</a>
+    </div>
+
+    <div class="top_block_item" style="width: 400px;">
+        <span class="top_block_item_title">地区:</span>
+
+        <select class="top_block_item_select" id="sltProvince" onchange="loadCity()">
+
+        </select>
+        <select class="top_block_item_select" style="margin-left: 3px;" id="sltCity">
+        </select>
+        <button class="top_block_item_button">确认</button>
+    </div>
+
+    <div class="top_block_item" style="width: 210px;">
+        <span class="top_block_item_title">来源:</span>
+        <a href="#" class="top_block_item_content">全部</a>
+        <a href="#" class="top_block_item_content">凤凰网</a>
+        <a href="#" class="top_block_item_content">微博</a>
+    </div>
+    <div class="top_block_item" style="width: 260px;margin-left: 30px;">
+        <span class="top_block_item_title">时间:</span>
+        <a href="#" class="top_block_item_content">今日</a>
+        <a href="#" class="top_block_item_content">近3天</a>
+        <a href="#" class="top_block_item_content">近7天</a>
+        <a href="#" class="top_block_item_content">近30天</a>
+    </div>
+    <div class="top_block_item" style="width: 400px;">
+        <span class="top_block_item_title">查找:</span>
+        <input class="top_block_item_text" type="text" name="search" id="search" placeholder="请输入搜索关键字">
+        <button class="top_block_item_button">搜索</button>
+    </div>
+</div>
+<script>
+    //定义存放所有省份数据的数组
+    var provinceList = ["--请选择--", "北京市", "江西省", "湖北省"];
+
+    //定义存放所有市数据的二维数组
+    var cityList = [
+        ["--请选择--"],
+        ["东城区", "西城区", "朝阳区"],
+        ["南昌市", "九江市", "上饶市"],
+        ["武汉市", "荆州市"],
+    ];
+
+
+    //定义加载省份下拉框的方法loadProvince
+    function loadProvince() {
+        //遍历provinceList数组中的元素
+        //动态增加选项option到下拉框sltProvince中
+        //1.1获得省份下拉框对象
+        var sltProvince = document.getElementById("sltProvince");
+        //1.2设置省份下拉框下拉选项的个数
+        sltProvince.length = provinceList.length;
+        //1.3遍历provinceList数组
+        for (var i = 0; i < provinceList.length; i++) {
+            //设置下拉框选项显示的内容
+            sltProvince.options[i].text = provinceList[i];
+        }
+    }
+
+    //定义根据当前选择的省份，加载对应市下拉框数据的方法
+    function loadCity() {
+        //1.获得所选择的省份选项序号
+        var idx = document.getElementById("sltProvince").selectedIndex;
+
+        //2.从cityList数组中，取idx行所在的数据
+        var cityData = cityList[idx];
+
+        //3.遍历cityData中的数据，载入到市下拉框sltCity中
+        var sltCity = document.getElementById("sltCity");
+        sltCity.length = cityData.length;
+        for (var i = 0; i < cityData.length; i++) {
+            sltCity.options[i].text = cityData[i];
+        }
+    }
+
+    //执行加载省份下拉框的方法
+    loadProvince();
+</script>
+{% endblock top_block %}
+
+
+{% block inner_block %}
+<div class="inner_block">
+    <table class="inner_table">
+        <thead class="inner_thead">
+        <th scope="col" class="inner_thead_th" style="width: 50px;">可信度</th>
+        <th scope="col" class="inner_thead_th" style="width: 550px;">线索原文</th>
+        <th scope="col" class="inner_thead_th" style="width: 120px;">官方</th>
+        <th scope="col" class="inner_thead_th" style="width: 120px;">信息源</th>
+        <th scope="col" class="inner_thead_th" style="width: 120px;">实时追踪</th>
+        <th scope="col" class="inner_thead_th" style="width: 120px;">操作</th>
+        </thead>
+        {% for post in posts %}
+        <tbody style="height: 85px">
+        <tr>
+            <td class="inner_thead_td">
+                <div class="inner_degree">
+                    86%
+                </div>
+            </td>
+            <td class="inner_thead_td">
+                <div style="margin-left: 5px">
+                    <div class="td_title">
+                        <a href="#" style="text-decoration: none;">{{ post.title }}</a>
+                    </div>
+                    <div class="td_content">
+                        {{ post.content }}
+                    </div>
+                    <div class="td_bottom">
+                        <div>
+                            {{ post.time }}&nbsp;&nbsp;&nbsp;{{ post.source }}
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+            <td class="inner_thead_td">
+                <div class="td_medium">
+                    <a href="#" style="text-decoration: none;">@平安盐城</a>
+                </div>
+            </td>
+            <td class="inner_thead_td">
+                <div class="td_medium">
+                    <a href="#" style="text-decoration: none;">{{ post.source }}</a>
+                </div>
+            </td>
+            <td class="inner_thead_td">
+                <div class="td_time">
+                    {{ post.time }}
+                </div>
+
+            </td>
+            <td class="inner_thead_td">
+                <div>
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+    {% block pagination %}
+        <div class="rq">
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('news.index') }}?page={{ pagination.prev_num }}" class="pagination-pre">&lt;</a>
+        {% endif %}
+
+            {% for page in pagination.iter_pages() %}
+                {% if page %}
+                    {% if page != pagination.page %}
+                        <a href="{{ url_for('news.index') }}?page={{ page }}" aria-label="Page 1" aria-current="page">{{ page }}</a>
+                    {% else %}
+                        <a class="curent" aria-label="Page 1" aria-current="page">{{ page }}</a>
+                {% endif %}
+                {% else %}
+                    <span class=pagination-ellipsis>&hellip;</span>
+                {% endif %}
+            {% endfor %}
+
+        {% if pagination.has_next %}
+            <a href="{{ url_for('news.index') }}?page={{ pagination.next_num }}" class="pagination-next">&gt;</a>
+        {% endif %}
+    </div>
+    {% endblock pagination %}
+</div>
+{% endblock inner_block %}
+
+
+</body>
+
+</html>
+
+

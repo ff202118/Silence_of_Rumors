@@ -20,7 +20,7 @@ class Category(db.Model):
     # icon = db.Column(db.String(128), nullable=True)
     # add_date = db.Column(db.Datetime, nullable=False, default=datetime.utcnow())
     # pub_date = db.Column(db.Datetime, nullable=False, default=datetime.utcnow(), onupdate=datetime.utcnow())
-    news = db.relationship('News', backref='category', lazy=True)
+    # news = db.relationship('News', backref='category', lazy=True)
 
     def __repr__(self):
         return f'<Category {self.name}>'
@@ -32,10 +32,10 @@ class News(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
     content = db.Column(TEXT, nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+    # category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     office = db.Column(db.String(128), nullable=True)
     source = db.Column(db.String(128), nullable=True)
-    time = db.Column(db.DateTime, nullable=False)
+    time = db.Column(db.String(128), nullable=False)
     location = db.Column(db.String(128), nullable=True)
     link = db.Column(db.String(128), nullable=False)
     hot = db.Column(db.Integer, nullable=True)

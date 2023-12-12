@@ -102,8 +102,9 @@ body {
 }
 
 .menu_title .title{
+  font-size: 18px;
   font-weight: bold;
- margin-left: 15px;
+  margin-left: 15px;
 }
 .sidebar.close .title {
   opacity: 0;

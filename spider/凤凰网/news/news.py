@@ -59,14 +59,11 @@ def getData(url):
         source = detail['catename']
         content = str(contentData['contentList'][0]['data'])
 
-        # 使用正则表达式匹配<p>标签内的文本
-        pattern = re.compile(r'<p>(.*?)<\/p>')
-        matches = re.findall(pattern, content)
+        soup = BeautifulSoup(content, 'html.parser')
+        text = soup.get_text()
 
-        # 将匹配到的文本连接成一个字符串
-        result_text = '\n'.join(matches)
 
-        return newsTime, source, keywords, result_text, path_url
+        return newsTime, source, keywords, text, path_url
     except:
         pass
 

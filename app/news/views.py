@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
+from .models import News
 
 # 注意此处蓝图的注册
 bp = Blueprint('news', __name__, url_prefix='/news', static_folder='static', template_folder='templates')
@@ -7,5 +8,23 @@ bp = Blueprint('news', __name__, url_prefix='/news', static_folder='static', tem
 
 @bp.route('index/')
 def index():
-    posts = [1, 2, 3, 4, 5]
-    return render_template('index.html', posts=posts)
+    page = request.args.get('page', 1, type=int)
+    pagination = News.query.paginate(page=page, per_page=10, error_out=False)
+    post_list = pagination.items
+
+    return render_template('index.html', posts=post_list, pagination=pagination)
+
+@bp.route('analysis/')
+def analysis():
+
+    return render_template('analysis.html', )
+
+@bp.route('detection/')
+def detection():
+
+    return render_template('detection.html', )
+
+@bp.route('about_us/')
+def about_us():
+
+    return render_template('about_us.html', )

@@ -7,6 +7,18 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 migrate = Migrate()
 
+def inject_news():
+    # 上下文处理器回调函数
+    """
+    context_processor上下文处理器在呈现模板之前运行，并且能够将新值注入模板上下文。上下文处理器是返回字典的函数。
+    然后，对于应用程序中的所有模板，此字典的键和值将与模板上下文合并：
+    """
+    from app.news.models import News
+    # categorys = News.query.limit(6).all()
+    news = News.query.all()
+    return dict(news=news)
+
+
 def register_bp(app:Flask):
     # 注册视图方法
     from app.news import views as news
@@ -14,6 +26,7 @@ def register_bp(app:Flask):
     app.register_blueprint(news.bp)
     # 首页url 这个的意思是定义整个网站的首页url是 '/', 这个首页来源于news.index, news.index的url是'/news/index'
     app.add_url_rule(rule='/', endpoint='index', view_func=news.index)
+
 
 def create_app(test_config=None):
     # 创建Flask对象 最重要！！！
@@ -45,6 +58,9 @@ def create_app(test_config=None):
 
     # 注册模型
     from app.news import models
+
+    # 全局上下文
+    app.context_processor(inject_news)
 
     return app
 
