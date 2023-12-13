@@ -242,3 +242,116 @@ button:disabled {
 .rq .curent{
     background-color: #3498db;
 }
+
+.container{
+    margin: 0 auto;
+    padding: 20px 20px 20px 20px;
+    position: absolute;
+    top: 75px;
+    left: 130px;
+    width: 1100px;
+    background-color: #F9F9F9;
+}
+
+.container .navi{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border-bottom: 3px solid #113965;
+}
+
+.navi a{
+    text-decoration: none;
+    font-size: 20px;
+    margin: 2px 30px 2px 30px;
+    width: 130px;
+    height: 47px;
+    text-align: center;
+    background-color: #F0F0F0;
+    line-height: 47px;
+    color: #B9BABB;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.navi a:hover{
+    background-color: #113965;
+    color:#F0F8FF;
+}
+
+.box{
+    float: left;
+}
+
+.box1{
+    margin-top: 20px;
+    height: 250px;
+    width: 770px;
+    border: 1px solid #113965;
+    background-color: white;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.box2{
+    margin-top: 20px;
+    height: 250px;
+    width: 770px;
+    border: 1px solid #113965;
+    background-color: white;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.box3{
+    float: left;
+    margin: 20px 0 0 20px;
+    height: 520px;
+    width: 270px;
+    border: 1px solid #113965;
+    background-color: white;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.box .title{
+    font-size: 15px;
+    font-weight: bold;
+    width: 120px;
+    height: 21px;
+    margin: 5px 5px 5px 5px;
+    color: #113965;
+}
+
+.box3 .title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 270px;
+    font-size: 15px;
+    background-color: #113965;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+}
+
+.box4{
+    float: left;
+    margin-top: 20px;
+    height: 250px;
+    width: 520px;
+    border: 1px solid #113965;
+    background-color: white;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.box5{
+    float: left;
+    margin-top: 20px;
+    margin-left: 20px;
+    height: 250px;
+    width: 520px;
+    border: 1px solid #113965;
+    background-color: white;
+    border-radius: 5px 5px 5px 5px;
+}
+

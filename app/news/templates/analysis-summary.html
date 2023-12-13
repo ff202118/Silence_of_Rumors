@@ -60,41 +60,11 @@
 {% endblock inner_block %}
 
 {% block box %}
-<div class="container">
-    <div class="navi">
-        <a href="{{ url_for('news.analysis') }}" style="background-color: #113965;color:#F0F8FF;">谣言分析</a>
-        <a href="{{ url_for('news.analysis_refute') }}">辟谣分析</a>
-        <a href="{{ url_for('news.analysis_summary') }}">汇总统计</a>
-    </div>
-
-    <div class="box">
-        <div class="box1">
-            <div class="title">┃ 热点谣言事件</div>
-
-        </div>
-
-        <div class="box2">
-            <div class="title">▶ 近一年走势</div>
-
+    <div class="container">
+        <div class="navi">
+            <a href="{{ url_for('news.analysis') }}">谣言分析</a>
+            <a href="{{ url_for('news.analysis_refute') }}">辟谣分析</a>
+            <a href="{{ url_for('news.analysis_summary') }}" style="background-color: #113965;color:#F0F8FF;">汇总统计</a>
         </div>
     </div>
-
-    <div class="box3">
-        <div class="title">谣言榜</div>
-    </div>
-
-    <div class="box">
-        <div class="box4">
-            <div class="title">▲ 热门关键字</div>
-
-        </div>
-
-        <div class="box5">
-            <div class="title">▲ 类别统计</div>
-
-        </div>
-    </div>
-
-
-</div>
 {% endblock box %}

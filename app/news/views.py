@@ -24,7 +24,17 @@ def detection():
 
     return render_template('detection.html', )
 
-@bp.route('about_us/')
+@bp.route('about-us/')
 def about_us():
 
-    return render_template('about_us.html', )
+    return render_template('about-us.html', )
+
+@bp.route('analysis-refute/')
+def analysis_refute():
+
+    return render_template('analysis-refute.html', )
+
+@bp.route('analysis-summary/')
+def analysis_summary():
+
+    return render_template('analysis-summary.html', )

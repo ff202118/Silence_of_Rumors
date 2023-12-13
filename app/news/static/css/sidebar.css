@@ -11,7 +11,7 @@
 body {
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
-  background-color: #eef5fe;
+  /*background-color: #eef5fe;*/
 }
 .nav_image {
   display: flex;
