@@ -280,7 +280,7 @@
             <td class="inner_thead_td">
                 <div style="margin-left: 5px">
                     <div class="td_title">
-                        <a href="#" style="text-decoration: none;">{{ post.title }}</a>
+                        <a href="{{ post.link }}" style="text-decoration: none;">{{ post.title }}</a>
                     </div>
                     <div class="td_content">
                         {{ post.content }}
@@ -296,12 +296,12 @@
 
             <td class="inner_thead_td">
                 <div class="td_medium">
-                    <a href="#" style="text-decoration: none;">@平安盐城</a>
+                    <a href="#" style="text-decoration: none;">{{ post.offic }}</a>
                 </div>
             </td>
             <td class="inner_thead_td">
                 <div class="td_medium">
-                    <a href="#" style="text-decoration: none;">{{ post.source }}</a>
+                    <a href="{{ post.link }}" style="text-decoration: none;">{{ post.source }}</a>
                 </div>
             </td>
             <td class="inner_thead_td">

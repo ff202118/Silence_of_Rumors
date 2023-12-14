@@ -38,9 +38,21 @@ class News(db.Model):
     time = db.Column(db.String(128), nullable=False)
     location = db.Column(db.String(128), nullable=True)
     link = db.Column(db.String(128), nullable=False)
-    hot = db.Column(db.Integer, nullable=True)
+    comments_count = db.Column(db.Integer, nullable=True)
+    participants = db.Column(db.Integer, nullable=True)
     keywords = db.Column(db.String(128), nullable=True)
-    image_link = db.Column(db.String(128), nullable=True)
+    picture = db.Column(db.String(128), nullable=True)
     category = db.Column(db.String(128), nullable=False)
+    comment1 = db.Column(TEXT, nullable=True)
+    comment2 = db.Column(TEXT, nullable=True)
+    comment3 = db.Column(TEXT, nullable=True)
+    comment4 = db.Column(TEXT, nullable=True)
+    comment5 = db.Column(TEXT, nullable=True)
+    comment6 = db.Column(TEXT, nullable=True)
+    comment7 = db.Column(TEXT, nullable=True)
+    comment8 = db.Column(TEXT, nullable=True)
+    comment9 = db.Column(TEXT, nullable=True)
+    comment10 = db.Column(TEXT, nullable=True)
+
     def __repr__(self):
         return f'<Post {self.title}>'

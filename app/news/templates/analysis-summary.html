@@ -60,11 +60,17 @@
 {% endblock inner_block %}
 
 {% block box %}
+<style>
+    .navi a:hover {
+        background-color: #37B3A1;
+        color: #F0F8FF;
+    }
+</style>
     <div class="container">
-        <div class="navi">
+        <div class="navi"  style="border-bottom: 3px solid #37B3A1;">
             <a href="{{ url_for('news.analysis') }}">谣言分析</a>
             <a href="{{ url_for('news.analysis_refute') }}">辟谣分析</a>
-            <a href="{{ url_for('news.analysis_summary') }}" style="background-color: #113965;color:#F0F8FF;">汇总统计</a>
+            <a href="{{ url_for('news.analysis_summary') }}" style="background-color: #37B3A1;color:#F0F8FF;">汇总统计</a>
         </div>
     </div>
 {% endblock box %}
