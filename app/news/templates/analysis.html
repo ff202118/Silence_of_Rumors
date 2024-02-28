@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block scripts %}
+{{ super() }}  {# 保留基础模板中已有的 JavaScript 引入 #}
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+{% endblock %}
+
 
 {% block navbar %}
 <script>
@@ -7,6 +12,7 @@
     var url2 = "{{ url_for('news.detection') }}";
     var url3 = "{{ url_for('news.analysis') }}";
 </script>
+
 <div style="float: left">
     <nav class="nav">
         <input type="radio" name="nav-item-opt" id="nav-item-opt-1">
@@ -60,6 +66,7 @@
 {% endblock inner_block %}
 
 {% block box %}
+
 <div class="container">
     <div class="navi">
         <a href="{{ url_for('news.analysis') }}" style="background-color: #113965;color:#F0F8FF;">谣言分析</a>
@@ -71,30 +78,192 @@
         <div class="box1">
             <div class="title">┃ 热点谣言事件</div>
 
+            <div class="content">
+
+                <div class="c-right" id="options">
+                    {% for ne in news %}
+                    <div>
+                        <span class="she-hui">类别</span>
+                        <span class="option"
+                              onclick="showContent(this, '{{ ne.content }}','{{ ne.title }}','{{ ne.date }}','{{ ne.source }}','{{ ne.detail_url }}')">
+                            {{ ne.title }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="c-left">
+                    <a href="" id="title-display" style="text-decoration: none;"> </a>
+                    <div style="margin: 4px 0 4px 0;font-size: 13px;color: gray">
+                        <span id="source-display"></span>
+                        <span id="date-display"></span>
+                    </div>
+                    <div style="color: black;font-size: 14px;" id="content-display">
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
         <div class="box2">
-            <div class="title">▶ 近一年走势</div>
-
+            <div class="title">▶ 近期走势</div>
+            <div id="lineChart" style="width:770px; height: 280px"></div>
         </div>
     </div>
 
     <div class="box3">
         <div class="title">谣言榜</div>
-    </div>
-
-    <div class="box">
-        <div class="box4">
-            <div class="title">▲ 热门关键字</div>
-
+        <div style="background-color: #9f92f8;">
+            <span style="margin-left: 30px;color: white;font-size: 13px;">发布者</span>
+            <span style="display: inline-block; float:right; margin-right: 15px;color: white;font-size: 13px;">谣言数</span>
         </div>
 
-        <div class="box5">
-            <div class="title">▲ 类别统计</div>
+        {% for rumor in rumors_rank %}
+        {% if loop.index is even %}
+        <div style="background-color: #F9F9F9">
+            {% else %}
+            <div>
+                {% endif %}
+                <div class="Rank">
+                    {% if loop.index <= 3 %}
+                    <span class="Rank-id" style="background-color: red;">{{ loop.index }}</span>
+                    {% elif loop.index <= 8%}
+                    <span class="Rank-id" style="background-color: #FF8547">{{ loop.index }}</span>
+                    {% else %}
+                    <span class="Rank-id" style="background-color: #FFAC38">{{ loop.index }}</span>
+                    {% endif %}
 
+                    <a style="text-decoration: none;color: #1B8ED1;" href="{{ rumor.detail_url }}">
+                        {{ rumor.source }} </a>
+                    <span style="display: inline-block; float:right;">{{ rumor.like_num }}</span>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+
+        <div class="box">
+            <div class="box4">
+                <div class="title">▲ 热门关键字</div>
+                <div id="wordCloudChart" style="width: 520px; height: 250px;"></div>
+            </div>
+
+            <div class="box5">
+                <div class="title">▲ 类别统计</div>
+
+            </div>
+        </div>
+
+
     </div>
-
-
 </div>
-{% endblock box %}
+    <script>
+        var chartDom = document.getElementById('wordCloudChart');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        // 词云图的数据，每个词条包含名称和权重
+        var data = [
+            { name: 'JavaScript', value: 100 },
+            { name: 'Python', value: 80 },
+            { name: 'Java', value: 70 },
+            { name: 'HTML', value: 60 },
+            { name: 'CSS', value: 50 },
+            { name: 'React', value: 40 },
+            { name: 'Vue', value: 30 },
+            { name: 'Angular', value: 20 },
+            { name: 'Node.js', value: 10 }
+        ];
+
+        option = {
+            series: [{
+                type: 'wordCloud',
+                data: data,
+                // 设置词云图的尺寸范围
+                size: ['20%', '80%'],
+                // 设置词云图的文字旋转角度范围
+                rotationRange: [-90, 90],
+                // 设置词云图的字体大小范围
+                textStyle: {
+                    normal: {
+                        fontFamily: 'Arial, sans-serif',
+                        fontWeight: 'bold',
+                        color: function () {
+                            // 随机生成词云图中的文字颜色
+                            return 'rgb(' + [
+                                Math.round(Math.random() * 255),
+                                Math.round(Math.random() * 255),
+                                Math.round(Math.random() * 255)
+                            ].join(',') + ')';
+                        }
+                    }
+                }
+            }]
+        };
+
+        // 使用配置项绘制词云图
+        myChart.setOption(option);
+    </script>
+
+    <script>
+        var chartDom = document.getElementById('lineChart');
+        var myChart = echarts.init(chartDom);
+        var option;
+        var date = {{ news_date | tojson }}
+        var count = {{ news_count | tojson }}
+        option = {
+            title: {
+                text: '近期谣言数量统计',
+                textStyle: {
+                    textAlign: 'center'
+                }
+            },
+            xAxis: {
+                type: 'category',
+                data: date
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: count,
+                    type: 'line',
+                    smooth: true,
+                    label: {
+                        show: true, // 显示数值
+                        position: 'top' // 数值显示在折线的顶部
+                    }
+                }
+            ]
+        };
+        // 使用配置项绘制图表
+        myChart.setOption(option);
+    </script>
+    <script>
+
+        window.onload = function () {
+            // 默认点击第一个选项
+            var firstOption = document.querySelector('.c-right .option');
+            showContent(firstOption, "{{ news[0].content }}", '{{ news[0].title }}', '{{ news[0].date }}', '{{ news[0].source }}', '{{ news[0].detail_url }}');
+        }
+
+        function showContent(selectedItem, content, title, date, source, detail_url) {
+            // 清除所有选中项的样式
+            var allItems = document.querySelectorAll('.c-right .option');
+            allItems.forEach(function (item) {
+                item.classList.remove('selected');
+            });
+            // 添加选中项的样式
+            selectedItem.classList.add('selected');
+
+            var truncatedContent = content.length > 150 ? content.substring(0, 150) + '...' : content;
+            document.getElementById('content-display').innerText = truncatedContent;
+            document.getElementById('title-display').innerText = title;
+            document.getElementById('date-display').innerText = date;
+            document.getElementById('source-display').innerText = source;
+            document.getElementById('title-display').href = detail_url;
+        }
+
+    </script>
+    {% endblock box %}

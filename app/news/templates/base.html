@@ -10,7 +10,10 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url_for('news.static', filename='css/block.css') }}">
     <script src="{{ url_for('news.static', filename='js/script.js') }}" defer></script>
+    <script src="{{ url_for('news.static', filename='js/echarts.min.js') }}"></script>
+    <script src="{{ url_for('news.static', filename='js/echarts-wordcloud.min.js') }}"></script>
     <title>谣无音讯</title>
+
 </head>
 
 <body>
@@ -271,42 +274,45 @@
         </thead>
         {% for post in posts %}
         <tbody style="height: 85px">
-        <tr>
+        {% if loop.index is even %}
+                <tr style="background-color: #EFFAFF;">
+            {% else %}
+                <tr>
+            {% endif %}
             <td class="inner_thead_td">
                 <div class="inner_degree">
-                    86%
+                    {{post.rate}}
                 </div>
             </td>
             <td class="inner_thead_td">
                 <div style="margin-left: 5px">
                     <div class="td_title">
-                        <a href="{{ post.link }}" style="text-decoration: none;">{{ post.title }}</a>
+                        <a href="{{ post.detail_url }}" style="text-decoration: none;">{{ post.title }}</a>
                     </div>
                     <div class="td_content">
                         {{ post.content }}
                     </div>
                     <div class="td_bottom">
                         <div>
-                            {{ post.time }}&nbsp;&nbsp;&nbsp;{{ post.source }}
+                            {{ post.date }}&nbsp;&nbsp;&nbsp;{{ post.source }}
                         </div>
-
                     </div>
                 </div>
             </td>
 
             <td class="inner_thead_td">
                 <div class="td_medium">
-                    <a href="#" style="text-decoration: none;">{{ post.offic }}</a>
+                    <span style="color: #0f77ea; font-size: 14px">{{ post.authority }}</span>
                 </div>
             </td>
             <td class="inner_thead_td">
                 <div class="td_medium">
-                    <a href="{{ post.link }}" style="text-decoration: none;">{{ post.source }}</a>
+                    <a href="{{ post.source_url }}" style="text-decoration: none;">{{ post.source }}</a>
                 </div>
             </td>
             <td class="inner_thead_td">
                 <div class="td_time">
-                    {{ post.time }}
+                    {{ post.date }}
                 </div>
 
             </td>
@@ -352,5 +358,3 @@
 </body>
 
 </html>
-
-

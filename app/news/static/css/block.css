@@ -1,9 +1,9 @@
 .top_block {
     position: absolute;
-    top: 82px;
+    top: 70px;
     left: 255px;
     width: 1080px;
-    height: 111px;
+    height: 100px;
     border: 1px solid #3594B8;
     background: #EAF7FB;
 }
@@ -79,28 +79,28 @@ button:disabled {
 /* 基本输入框样式 */
 .top_block_item_text {
     margin-left: 20px;
-  padding: 5px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
 }
 
 /* 获得焦点时的样式 */
 .top_block_item_text:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 
 /* 禁用状态的样式 */
 .top_block_item_text:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-.inner_block{
+.inner_block {
     position: absolute;
-    top: 200px;
+    top: 180px;
     left: 255px;
     /*width: 1080px;*/
     /*height: 111px;*/
@@ -108,15 +108,15 @@ button:disabled {
     /*background: #EAF7FB;*/
 }
 
-.inner_table{
+.inner_table {
 
 }
 
-.inner_thead{
+.inner_thead {
     background-color: #008FD7;
 }
 
-.inner_thead_th{
+.inner_thead_th {
     text-align: center;
     border-right: 1px solid white;
     height: 33px;
@@ -124,17 +124,17 @@ button:disabled {
     font-size: 14px;
 }
 
-.inner_thead_td{
+.inner_thead_td {
     margin-left: 5px;
 }
 
-.td_title{
+.td_title {
     margin: 2px 0 2px;
     font-size: 15px;
     color: #2E93FF;
 }
 
-.td_content{
+.td_content {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -143,19 +143,19 @@ button:disabled {
     color: gray;
 }
 
-.td_medium{
+.td_medium {
     font-size: 15px;
     color: #2E93FF;
     text-align: center;
 }
 
-.td_time{
+.td_time {
     font-size: 15px;
     text-align: center;
 
 }
 
-.inner_degree{
+.inner_degree {
     margin: 5px 5px 5px 5px;
     display: flex;
     justify-content: center;
@@ -168,10 +168,18 @@ button:disabled {
     /*font-weight: bold;*/
 }
 
-.td_bottom{
+.td_bottom {
     font-size: 14px;
     color: gray;
     margin: 8px 0 0 0;
+}
+
+/*tr:nth-child(odd) {*/
+/*    background-color: #f2f2f2;*/
+/*}*/
+
+.inner_table tbody tr:nth-child(even) {
+    background-color: #EFFAFF;
 }
 
 
@@ -220,7 +228,7 @@ button:disabled {
 
 /*!*}*!*/
 
-.rq{
+.rq {
     width: 100%;
     height: 50px;
     text-align: center;
@@ -228,7 +236,7 @@ button:disabled {
     padding-top: 20px;
 }
 
-.rq a,.rq span{
+.rq a, .rq span {
     text-decoration: none;
     display: inline-block;
     line-height: 25px;
@@ -239,11 +247,12 @@ button:disabled {
     font-size: 14px;
     color: #000000;
 }
-.rq .curent{
+
+.rq .curent {
     background-color: #3498db;
 }
 
-.container{
+.container {
     margin: 0 auto;
     padding: 20px 20px 20px 20px;
     position: absolute;
@@ -253,7 +262,7 @@ button:disabled {
     background-color: #F9F9F9;
 }
 
-.container .navi{
+.container .navi {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -261,7 +270,7 @@ button:disabled {
     border-bottom: 3px solid #113965;
 }
 
-.navi a{
+.navi a {
     text-decoration: none;
     font-size: 20px;
     margin: 2px 30px 2px 30px;
@@ -275,16 +284,16 @@ button:disabled {
     font-weight: bold;
 }
 
-.navi a:hover{
+.navi a:hover {
     background-color: #113965;
-    color:#F0F8FF;
+    color: #F0F8FF;
 }
 
-.box{
+.box {
     float: left;
 }
 
-.box1{
+.box1 {
     margin-top: 20px;
     height: 250px;
     width: 770px;
@@ -293,16 +302,16 @@ button:disabled {
     border-radius: 5px 5px 5px 5px;
 }
 
-.box2{
+.box2 {
     margin-top: 20px;
-    height: 250px;
+    height: 300px;
     width: 770px;
     border: 1px solid #113965;
     background-color: white;
     border-radius: 5px 5px 5px 5px;
 }
 
-.box3{
+.box3 {
     float: left;
     margin: 20px 0 0 20px;
     height: 520px;
@@ -312,29 +321,29 @@ button:disabled {
     border-radius: 5px 5px 5px 5px;
 }
 
-.box .title{
+.box .title {
     font-size: 15px;
     font-weight: bold;
     width: 120px;
-    height: 21px;
+    height: 20px;
     margin: 5px 5px 5px 5px;
     color: #113965;
 }
 
-.box3 .title{
+.box3 .title {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 40px;
     width: 270px;
     font-size: 15px;
-    background-color: #113965;
+    background-color: #8669FF;
     color: white;
     font-weight: bold;
     border-radius: 5px 5px 0 0;
 }
 
-.box4{
+.box4 {
     float: left;
     margin-top: 20px;
     height: 250px;
@@ -344,7 +353,7 @@ button:disabled {
     border-radius: 5px 5px 5px 5px;
 }
 
-.box5{
+.box5 {
     float: left;
     margin-top: 20px;
     margin-left: 20px;
@@ -355,3 +364,72 @@ button:disabled {
     border-radius: 5px 5px 5px 5px;
 }
 
+.box1 .content {
+    width: 760px;
+    height: 215px;
+    margin: 5px 5px 5px 5px;
+    color: #113965;
+}
+
+.content .c-left {
+    float: left;
+    width: 370px;
+
+}
+
+.content .c-right {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: right;
+    width: 370px;
+}
+
+
+.option {
+    font-size: 12px;
+    color: black;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.option:hover {
+    color: red;
+}
+
+.option.selected {
+    color: red; /* 选中时的背景色 */
+}
+
+.she-hui {
+    display: inline-block;
+    font-size: 12px;
+    width: 45px;
+    height: 18px;
+    background: #3DB2E4;
+    color: white;
+    font-style: italic;
+    text-align: center;
+    margin: 5px 5px 5px 5px;
+}
+
+.Rank{
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 6px 12px 6px 12px;
+    border-bottom: 1px dashed #ccc;
+    /*width: 370px;*/
+}
+
+.Rank-id{
+    display: inline-flex;
+    background-color: #f54545;
+    width: 14px;
+    height: 14px;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    color: white;
+}
