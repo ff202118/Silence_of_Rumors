@@ -28,6 +28,18 @@
     font-size: 14px;
     text-decoration: none;
     color: black;
+    cursor: pointer;
+}
+
+/* 鼠标悬停时样式 */
+.top_block_item_content:hover {
+  color: #00f; /* 鼠标悬停时文字颜色 */
+}
+
+/* 选中时样式 */
+.top_block_item_content.selected {
+  border: 2px solid #00f; /* 选中时按钮框颜色 */
+  color: #f00; /* 选中时文字颜色 */
 }
 
 .top_block_item_select {
@@ -135,11 +147,12 @@ button:disabled {
 }
 
 .td_content {
+    margin: 5px 5px 5px 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 550px;
-    font-size: 12px;
+    font-size: 13px;
     color: gray;
 }
 
@@ -171,7 +184,6 @@ button:disabled {
 .td_bottom {
     font-size: 14px;
     color: gray;
-    margin: 8px 0 0 0;
 }
 
 /*tr:nth-child(odd) {*/
@@ -259,7 +271,7 @@ button:disabled {
     top: 75px;
     left: 130px;
     width: 1100px;
-    background-color: #F9F9F9;
+    background-color: #E6E6E6;
 }
 
 .container .navi {
@@ -330,6 +342,16 @@ button:disabled {
     color: #113965;
 }
 
+.title1{
+    font-size: 15px;
+    font-weight: bold;
+    width: 120px;
+    height: 20px;
+    margin: 5px 5px 5px 5px;
+    color: #113965;
+}
+
+
 .box3 .title {
     display: flex;
     justify-content: center;
@@ -346,7 +368,7 @@ button:disabled {
 .box4 {
     float: left;
     margin-top: 20px;
-    height: 250px;
+    height: 520px;
     width: 520px;
     border: 1px solid #113965;
     background-color: white;
@@ -357,7 +379,7 @@ button:disabled {
     float: left;
     margin-top: 20px;
     margin-left: 20px;
-    height: 250px;
+    height: 520px;
     width: 520px;
     border: 1px solid #113965;
     background-color: white;
@@ -398,6 +420,21 @@ button:disabled {
 }
 
 .option.selected {
+    color: red; /* 选中时的背景色 */
+}
+
+.option1{
+    font-size: 12px;
+    color: black;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.option1:hover {
+    color: red;
+}
+
+.option1.selected {
     color: red; /* 选中时的背景色 */
 }
 

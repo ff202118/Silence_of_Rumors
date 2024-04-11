@@ -21,7 +21,7 @@
 {% block navbar %}
 <script>
     var url1 = "{{ url_for('news.index') }}";
-    var url2 = "{{ url_for('news.detection') }}";
+    var url2 = "{{ url_for('news.rumors_follow') }}";
     var url3 = "{{ url_for('news.analysis') }}";
 </script>
 <div style="float: left">
@@ -170,15 +170,15 @@
 <div class="top_block">
     <div class="top_block_item" style="width: 200px;">
         <span class="top_block_item_title">可信度:</span>
-        <a href="#" class="top_block_item_content">全部</a>
-        <a href="#" class="top_block_item_content">高</a>
-        <a href="#" class="top_block_item_content">中</a>
-        <a href="#" class="top_block_item_content">低</a>
+        <!--        <a id="reloadButton" href="#" class="top_block_item_content">全部</a>-->
+        <a  href="{{ url_for('news.rate', rate_cate = 'high') }}" class="top_block_item_content">高</a>
+        <a  href="{{ url_for('news.rate', rate_cate = 'mid') }}" class="top_block_item_content">中</a>
+        <a  href="{{ url_for('news.rate', rate_cate = 'low') }}" class="top_block_item_content">低</a>
     </div>
     <div class="top_block_item" style="width: 180px">
         <span class="top_block_item_title">发布者:</span>
-        <a href="#" class="top_block_item_content">官方媒体</a>
-        <a href="#" class="top_block_item_content">其它</a>
+        <a href="{{ url_for('news.publisher', pub = 'authority') }}" class="top_block_item_content">官方媒体</a>
+        <a href="{{ url_for('news.publisher', pub = 'none-authority') }}" class="top_block_item_content">其它</a>
     </div>
 
     <div class="top_block_item" style="width: 400px;">
@@ -194,23 +194,39 @@
 
     <div class="top_block_item" style="width: 210px;">
         <span class="top_block_item_title">来源:</span>
-        <a href="#" class="top_block_item_content">全部</a>
-        <a href="#" class="top_block_item_content">凤凰网</a>
-        <a href="#" class="top_block_item_content">微博</a>
+        <a href="{{ url_for('news.index') }}" class="top_block_item_content">全部</a>
+<!--        <a href="#" class="top_block_item_content">凤凰网</a>-->
+        <a href="{{ url_for('news.index') }}" class="top_block_item_content">微博</a>
     </div>
     <div class="top_block_item" style="width: 260px;margin-left: 30px;">
         <span class="top_block_item_title">时间:</span>
-        <a href="#" class="top_block_item_content">今日</a>
-        <a href="#" class="top_block_item_content">近3天</a>
-        <a href="#" class="top_block_item_content">近7天</a>
-        <a href="#" class="top_block_item_content">近30天</a>
+        <a  href="{{ url_for('news.time', t = 0) }}" class="top_block_item_content">今日</a>
+        <a  href="{{ url_for('news.time', t = 3) }}" class="top_block_item_content">近3天</a>
+        <a  href="{{ url_for('news.time', t = 7) }}" class="top_block_item_content">近7天</a>
+        <a  href="{{ url_for('news.time', t = 30) }}" class="top_block_item_content">近30天</a>
     </div>
     <div class="top_block_item" style="width: 400px;">
         <span class="top_block_item_title">查找:</span>
         <input class="top_block_item_text" type="text" name="search" id="search" placeholder="请输入搜索关键字">
-        <button class="top_block_item_button">搜索</button>
+        <a id="searchLink" href="{{ url_for('news.search', content = '') }}" class="top_block_item_button">搜索</a>
     </div>
 </div>
+
+
+<script>
+        var inputElement = document.getElementById('search');
+
+        inputElement.addEventListener('input', function() {
+            var placeholderText = inputElement.value;
+            if (placeholderText==='')
+                alert('请输入要查找的内容!')
+
+            var searchLink = document.getElementById('searchLink');
+            searchLink.href = "/news/index/search/" + placeholderText;
+            console.log(placeholderText)
+        });
+</script>
+
 <script>
     //定义存放所有省份数据的数组
     var provinceList = ["--请选择--", "北京市", "江西省", "湖北省"];
@@ -263,7 +279,7 @@
 
 {% block inner_block %}
 <div class="inner_block">
-    <table class="inner_table">
+    <table class="inner_table" id="dataTable">
         <thead class="inner_thead">
         <th scope="col" class="inner_thead_th" style="width: 50px;">可信度</th>
         <th scope="col" class="inner_thead_th" style="width: 550px;">线索原文</th>
@@ -275,13 +291,13 @@
         {% for post in posts %}
         <tbody style="height: 85px">
         {% if loop.index is even %}
-                <tr style="background-color: #EFFAFF;">
+        <tr style="background-color: #EFFAFF;">
             {% else %}
-                <tr>
+        <tr>
             {% endif %}
             <td class="inner_thead_td">
                 <div class="inner_degree">
-                    {{post.rate}}
+                    {{ post.rate }}%
                 </div>
             </td>
             <td class="inner_thead_td">
@@ -302,7 +318,11 @@
 
             <td class="inner_thead_td">
                 <div class="td_medium">
-                    <span style="color: #0f77ea; font-size: 14px">{{ post.authority }}</span>
+                    <span style="color: #0f77ea; font-size: 14px">
+                        {% if post.authority !=None %}
+                            {{ post.authority }}
+                        {% endif %}
+                    </span>
                 </div>
             </td>
             <td class="inner_thead_td">
@@ -327,25 +347,25 @@
     </table>
 
     {% block pagination %}
-        <div class="rq">
+    <div class="rq">
         {% if pagination.has_prev %}
-            <a href="{{ url_for('news.index') }}?page={{ pagination.prev_num }}" class="pagination-pre">&lt;</a>
+        <a href="{{ url_for('news.index') }}?page={{ pagination.prev_num }}" class="pagination-pre">&lt;</a>
         {% endif %}
 
-            {% for page in pagination.iter_pages() %}
-                {% if page %}
-                    {% if page != pagination.page %}
-                        <a href="{{ url_for('news.index') }}?page={{ page }}" aria-label="Page 1" aria-current="page">{{ page }}</a>
-                    {% else %}
-                        <a class="curent" aria-label="Page 1" aria-current="page">{{ page }}</a>
-                {% endif %}
-                {% else %}
-                    <span class=pagination-ellipsis>&hellip;</span>
-                {% endif %}
-            {% endfor %}
+        {% for page in pagination.iter_pages() %}
+        {% if page %}
+        {% if page != pagination.page %}
+        <a href="{{ url_for('news.index') }}?page={{ page }}" aria-label="Page 1" aria-current="page">{{ page }}</a>
+        {% else %}
+        <a class="curent" aria-label="Page 1" aria-current="page">{{ page }}</a>
+        {% endif %}
+        {% else %}
+        <span class=pagination-ellipsis>&hellip;</span>
+        {% endif %}
+        {% endfor %}
 
         {% if pagination.has_next %}
-            <a href="{{ url_for('news.index') }}?page={{ pagination.next_num }}" class="pagination-next">&gt;</a>
+        <a href="{{ url_for('news.index') }}?page={{ pagination.next_num }}" class="pagination-next">&gt;</a>
         {% endif %}
     </div>
     {% endblock pagination %}

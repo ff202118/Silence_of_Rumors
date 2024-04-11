@@ -4,7 +4,7 @@
 {% block navbar %}
 <script>
     var url1 = "{{ url_for('news.index') }}";
-    var url2 = "{{ url_for('news.detection') }}";
+    var url2 = "{{ url_for('news.rumors_follow') }}";
     var url3 = "{{ url_for('news.analysis') }}";
 </script>
 <div style="float: left">
@@ -66,11 +66,318 @@
         color: #F0F8FF;
     }
 </style>
-    <div class="container">
-        <div class="navi"  style="border-bottom: 3px solid #37B3A1;">
-            <a href="{{ url_for('news.analysis') }}">谣言分析</a>
-            <a href="{{ url_for('news.analysis_refute') }}">辟谣分析</a>
-            <a href="{{ url_for('news.analysis_summary') }}" style="background-color: #37B3A1;color:#F0F8FF;">汇总统计</a>
+<div class="container">
+    <div class="navi" style="border-bottom: 3px solid #37B3A1;">
+        <a href="{{ url_for('news.analysis') }}">谣言分析</a>
+        <a href="{{ url_for('news.analysis_refute') }}">辟谣分析</a>
+        <a href="{{ url_for('news.analysis_summary') }}" style="background-color: #37B3A1;color:#F0F8FF;">汇总统计</a>
+    </div>
+
+    <div class="box1" style="width: 1060px;">
+        <div class="title1" style="color: #dd5044">┃ 热点辟谣事件</div>
+
+        <div class="content" style="width: 1050px;">
+
+            <div id="options" style="width: 660px;float: right;">
+                {% for ne in news2 %}
+                {% if loop.index is odd %}
+                <div style="float:left;width: 330px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                    <span class="she-hui" style="background-color: #dd5044">类别</span>
+                    <span class="option"
+                          onclick="showContent(this, '{{ ne.content }}','{{ ne.title }}','{{ ne.date }}','{{ ne.source }}','{{ ne.detail_url }}')">
+                                {{ ne.title }}
+                            </span>
+                </div>
+                {% else %}
+                <div style="float: right;width: 330px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                    <span class="she-hui" style="background-color: #dd5044">类别</span>
+                    <span class="option"
+                          onclick="showContent(this, '{{ ne.content }}','{{ ne.title }}','{{ ne.date }}','{{ ne.source }}','{{ ne.detail_url }}')">
+                                {{ ne.title }}
+                            </span>
+                </div>
+                {%endif%}
+                {% endfor %}
+            </div>
+
+            <div class="c-left">
+                <a href="" id="title-display" style="text-decoration: none;"> </a>
+                <div style="margin: 4px 0 4px 0;font-size: 13px;color: gray">
+                    <span id="source-display"></span>
+                    <span id="date-display"></span>
+                </div>
+                <div style="color: black;font-size: 14px;" id="content-display">
+                </div>
+            </div>
+
         </div>
     </div>
+
+    <div class="box1" style="width: 1060px;">
+        <div class="title1" style="color: #113965">┃ 热点谣言事件</div>
+
+        <div class="content" style="width: 1050px;">
+
+            <div id="options" style="width: 660px;float: right;">
+                {% for ne in news %}
+                {% if loop.index is odd %}
+                <div style="float:left;width: 330px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                    <span class="she-hui">类别</span>
+                    <span class="option1"
+                          onclick="showContent1(this, '{{ ne.content }}','{{ ne.title }}','{{ ne.date }}','{{ ne.source }}','{{ ne.detail_url }}')">
+                                {{ ne.title }}
+                            </span>
+                </div>
+                {% else %}
+                <div style="float: right;width: 330px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                    <span class="she-hui">类别</span>
+                    <span class="option1"
+                          onclick="showContent1(this, '{{ ne.content }}','{{ ne.title }}','{{ ne.date }}','{{ ne.source }}','{{ ne.detail_url }}')">
+                                {{ ne.title }}
+                            </span>
+                </div>
+                {%endif%}
+                {% endfor %}
+            </div>
+
+            <div class="c-left">
+                <a href="" id="title-display1" style="text-decoration: none;"> </a>
+                <div style="margin: 4px 0 4px 0;font-size: 13px;color: gray">
+                    <span id="source-display1"></span>
+                    <span id="date-display1"></span>
+                </div>
+                <div style="color: black;font-size: 14px;" id="content-display1">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div style="width: 1060px;height: 550px;display: flex;justify-content: center; align-items: center;">
+        <div style="display: inline-block">
+        <div class="box3">
+            <div class="title">谣言榜</div>
+            <div style="background-color: #9f92f8;">
+                <span style="margin-left: 30px;color: white;font-size: 13px;">发布者</span>
+                <span style="display: inline-block; float:right; margin-right: 15px;color: white;font-size: 13px;">谣言数</span>
+            </div>
+
+            {% for rumor in rumors_rank %}
+            {% if loop.index is even %}
+            <div style="background-color: #F9F9F9">
+                {% else %}
+                <div>
+                    {% endif %}
+                    <div class="Rank">
+                        {% if loop.index <= 3 %}
+                        <span class="Rank-id" style="background-color: red;">{{ loop.index }}</span>
+                        {% elif loop.index <= 8%}
+                        <span class="Rank-id" style="background-color: #FF8547">{{ loop.index }}</span>
+                        {% else %}
+                        <span class="Rank-id" style="background-color: #FFAC38">{{ loop.index }}</span>
+                        {% endif %}
+
+                        <a style="text-decoration: none;color: #1B8ED1;" href="{{ rumor.detail_url }}">
+                            {{ rumor.source }} </a>
+                        <span style="display: inline-block; float:right;">{{ rumor.like_num }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="box3">
+            <div class="title" style="background-color: #f196bc;">辟谣榜</div>
+            <div style="background-color: #fba4c4;">
+                <span style="margin-left: 30px;color: white;font-size: 13px;">发布者</span>
+                <span style="display: inline-block; float:right; margin-right: 15px;color: white;font-size: 13px;">辟谣数</span>
+            </div>
+
+            {% for refute in refute_rank %}
+            {% if loop.index is even %}
+            <div style="background-color: #F9F9F9">
+                {% else %}
+                <div>
+                    {% endif %}
+                    <div class="Rank">
+                        {% if loop.index <= 3 %}
+                        <span class="Rank-id" style="background-color: red;">{{ loop.index }}</span>
+                        {% elif loop.index <= 8%}
+                        <span class="Rank-id" style="background-color: #FF8547">{{ loop.index }}</span>
+                        {% else %}
+                        <span class="Rank-id" style="background-color: #FFAC38">{{ loop.index }}</span>
+                        {% endif %}
+
+                        <a style="text-decoration: none;color: #1B8ED1;" href="{{ refute.detail_url }}">
+                            {{ refute.source }} </a>
+                        <span style="display: inline-block; float:right;">{{ refute.like_num }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+            <div class="box2" style="width: 1060px;height: 340px">
+                <div class="title1" style="color: #37b3a1">▶ 近期走势</div>
+                <div id="lineChart" style="width:1060px; height: 280px"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+<script>
+    var chartDom = document.getElementById('wordCloudChart');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    // 词云图的数据，每个词条包含名称和权重
+    var data = [
+        {name: 'JavaScript', value: 100},
+        {name: 'Python', value: 80},
+        {name: 'Java', value: 70},
+        {name: 'HTML', value: 60},
+        {name: 'CSS', value: 50},
+        {name: 'React', value: 40},
+        {name: 'Vue', value: 30},
+        {name: 'Angular', value: 20},
+        {name: 'Node.js', value: 10}
+    ];
+
+    option = {
+        series: [{
+            type: 'wordCloud',
+            data: data,
+            // 设置词云图的尺寸范围
+            size: ['20%', '80%'],
+            // 设置词云图的文字旋转角度范围
+            rotationRange: [-90, 90],
+            // 设置词云图的字体大小范围
+            textStyle: {
+                normal: {
+                    fontFamily: 'Arial, sans-serif',
+                    fontWeight: 'bold',
+                    color: function () {
+                        // 随机生成词云图中的文字颜色
+                        return 'rgb(' + [
+                            Math.round(Math.random() * 255),
+                            Math.round(Math.random() * 255),
+                            Math.round(Math.random() * 255)
+                        ].join(',') + ')';
+                    }
+                }
+            }
+        }]
+    };
+
+    // 使用配置项绘制词云图
+    myChart.setOption(option);
+</script>
+
+    <script>
+        var chartDom = document.getElementById('lineChart');
+        var myChart = echarts.init(chartDom);
+        var option;
+        var date = {{ news_date1 | tojson }}
+        var count1 = {{ news_count1 | tojson }}
+        var count2 = {{ news_count2 | tojson }}
+         option = {
+          title: {
+            text: '汇总统计'
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            data: ['谣言数量', '辟谣数量']
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          toolbox: {
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: date
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              name: '谣言数量',
+              type: 'line',
+              stack: 'Total',
+              data: count1,
+                smooth: true
+            },
+            {
+              name: '辟谣数量',
+              type: 'line',
+              stack: 'Total',
+              data: count2,
+                smooth: true
+            },
+          ]
+        };
+        // 使用配置项绘制图表
+        myChart.setOption(option);
+    </script>
+<script>
+
+    window.onload = function () {
+        // 默认点击第一个选项
+        var firstOption = document.querySelector('.option');
+        showContent(firstOption, "{{ news2[0].content }}", '{{ news2[0].title }}', '{{ news2[0].date }}', '{{ news2[0].source }}', '{{ news2[0].detail_url }}');
+        var firstOption1 = document.querySelector('.option1');
+        showContent1(firstOption1, "{{ news2[0].content }}", '{{ news2[0].title }}', '{{ news2[0].date }}', '{{ news2[0].source }}', '{{ news2[0].detail_url }}')
+    }
+
+    function showContent(selectedItem, content, title, date, source, detail_url) {
+        // 清除所有选中项的样式
+        var allItems = document.querySelectorAll('.option');
+        allItems.forEach(function (item) {
+            item.classList.remove('selected');
+        });
+        // 添加选中项的样式
+        selectedItem.classList.add('selected');
+
+        var truncatedContent = content.length > 150 ? content.substring(0, 150) + '...' : content;
+        document.getElementById('content-display').innerText = truncatedContent;
+        document.getElementById('title-display').innerText = title;
+        document.getElementById('date-display').innerText = date;
+        document.getElementById('source-display').innerText = source;
+        document.getElementById('title-display').href = detail_url;
+    }
+
+</script>
+
+<script>
+    function showContent1(selectedItem, content, title, date, source, detail_url) {
+        // 清除所有选中项的样式
+        var allItems = document.querySelectorAll('.option1');
+        allItems.forEach(function (item) {
+            item.classList.remove('selected');
+        });
+        // 添加选中项的样式
+        selectedItem.classList.add('selected');
+
+        var truncatedContent = content.length > 150 ? content.substring(0, 150) + '...' : content;
+        document.getElementById('content-display1').innerText = truncatedContent;
+        document.getElementById('title-display1').innerText = title;
+        document.getElementById('date-display1').innerText = date;
+        document.getElementById('source-display1').innerText = source;
+        document.getElementById('title-display1').href = detail_url;
+    }
+</script>
 {% endblock box %}

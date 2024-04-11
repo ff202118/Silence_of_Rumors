@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+    {% block pagination %}
+    <div class="rq">
+        {% if pagination.has_prev %}
+        <a href="{{ url_for('news.time', t=t) }}?page={{ pagination.prev_num }}" class="pagination-pre">&lt;</a>
+        {% endif %}
+
+        {% for page in pagination.iter_pages() %}
+        {% if page %}
+        {% if page != pagination.page %}
+        <a href="{{ url_for('news.time', t=t) }}?page={{ page }}" aria-label="Page 1" aria-current="page">{{ page }}</a>
+        {% else %}
+        <a class="curent" aria-label="Page 1" aria-current="page">{{ page }}</a>
+        {% endif %}
+        {% else %}
+        <span class=pagination-ellipsis>&hellip;</span>
+        {% endif %}
+        {% endfor %}
+
+        {% if pagination.has_next %}
+        <a href="{{ url_for('news.time', t=t) }}?page={{ pagination.next_num }}" class="pagination-next">&gt;</a>
+        {% endif %}
+    </div>
+    {% endblock pagination %}
