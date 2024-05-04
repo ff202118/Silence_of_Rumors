@@ -33,7 +33,7 @@
 
 <div class="user_info">
     <span>
-        欢迎,&nbsp;&nbsp;David Oliva&nbsp;&nbsp;
+        欢迎,&nbsp;&nbsp;{{ g.user.username }}&nbsp;&nbsp;
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAZFJREFUSEvt1k9LFVEUAPCf+AEqBPdRSNBGXOgiIl0EQd+gRZsgcOFSBHWnILSsjbRo4ycQhDZBfyioCMSF2qL8AEFBtTbjwDwYRufN3DtPRPCsHsw953fvfXfm3CFnFENn5MqFL2GumPQz/E5dQA58BR8xVmD7mMLfFDwFvowlPELg5fiJF1jFnzYTaAs/wFOMNBT9gcfYbMLbwMtYaSpUeT6L9X45TfA0XieiMfwIk/hSl9sPjmdfS4co1X+P2znwfWylapXxE9g+qUa/Fcdh6r2ruf4CnqTCL3EvVyzyNvAwFY5DFYerS7zC3VT4De50UfG2bvL9/uMLOGfXz89WX8cHjOYss5QTTeMWvlXrnHS4bhSnsSvaswKfwV4Zr8LRZw8QvXeQ8QtXy726Csd7G6/RaUTUftcrXIWjlX06DbW4Hn2ug4fxHNcGjH8vbiaHdfCAvfpyTTeQauZ4cauInSnHP0Tv3Wk781Q46kZ/na8Aa1hsi8a4HDjybhYfhvgdH5rdFLQLnOocG5+74s7wf3miPB/OgoyfAAAAAElFTkSuQmCC"
              style="width: 16px;"/>
         登录时间:
@@ -45,9 +45,15 @@
         document.write(str);
     </script>
 
-    <button class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
+    <button id="logout_button" class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
 </div>
 
+<script>
+document.getElementById('logout_button').addEventListener('click', function() {
+    // 在点击按钮时执行以下代码
+    window.location.href = '/user/logout';  // 将页面重定向到 '/logout' 路由
+});
+</script>
 {% endblock navbar %}
 
 {% block sidebar %}
@@ -179,9 +185,9 @@
                         <span class="Rank-id" style="background-color: #FFAC38">{{ loop.index }}</span>
                         {% endif %}
 
-                        <a style="text-decoration: none;color: #1B8ED1;" href="{{ rumor.detail_url }}">
+                        <a style="text-decoration: none;" href="{{ rumor.detail_url }}">
                             {{ rumor.source }} </a>
-                        <span style="display: inline-block; float:right;">{{ rumor.like_num }}</span>
+                        <span style="display: inline-block; float:right;">{{ rumor.counts }}</span>
                     </div>
                 </div>
                 {% endfor %}
@@ -209,12 +215,16 @@
                         <span class="Rank-id" style="background-color: #FFAC38">{{ loop.index }}</span>
                         {% endif %}
 
-                        <a style="text-decoration: none;color: #1B8ED1;" href="{{ refute.detail_url }}">
+                        <a style="text-decoration: none" href="{{ refute.detail_url }}">
                             {{ refute.source }} </a>
-                        <span style="display: inline-block; float:right;">{{ refute.like_num }}</span>
+                        <span style="display: inline-block; float:right;">{{ refute.counts }}</span>
                     </div>
                 </div>
                 {% endfor %}
+            </div>
+            <div class="box4" style="margin: 20px 0 0 20px;">
+                <div class="title" style="color: #dd5044; margin-left: 10px; font-weight: bold">▲ 热门关键字</div>
+                <div id="wordCloudChart" style="width: 460px; height: 520px;"></div>
             </div>
         </div>
 
@@ -230,50 +240,52 @@
 
 </div>
 
-
-
 <script>
     var chartDom = document.getElementById('wordCloudChart');
     var myChart = echarts.init(chartDom);
     var option;
 
     // 词云图的数据，每个词条包含名称和权重
-    var data = [
-        {name: 'JavaScript', value: 100},
-        {name: 'Python', value: 80},
-        {name: 'Java', value: 70},
-        {name: 'HTML', value: 60},
-        {name: 'CSS', value: 50},
-        {name: 'React', value: 40},
-        {name: 'Vue', value: 30},
-        {name: 'Angular', value: 20},
-        {name: 'Node.js', value: 10}
-    ];
+    var data = {{ word_weight | tojson }}
+
 
     option = {
         series: [{
+            tooltip: {
+                show: true
+            },
             type: 'wordCloud',
             data: data,
-            // 设置词云图的尺寸范围
-            size: ['20%', '80%'],
-            // 设置词云图的文字旋转角度范围
-            rotationRange: [-90, 90],
-            // 设置词云图的字体大小范围
+            sizeRange: [18, 30],
+            width: '100%',
+            height: '100%',
+            left: 'center',
+            top: 'center',
+            rotationRange: [-90, 180],
+            shape: 'hexagon',
             textStyle: {
-                normal: {
-                    fontFamily: 'Arial, sans-serif',
-                    fontWeight: 'bold',
-                    color: function () {
-                        // 随机生成词云图中的文字颜色
-                        return 'rgb(' + [
-                            Math.round(Math.random() * 255),
-                            Math.round(Math.random() * 255),
-                            Math.round(Math.random() * 255)
-                        ].join(',') + ')';
-                    }
-                }
+                fontWeight: '550',
+                color: function () {
+                    return 'rgb(' + [
+                        Math.round(Math.random() * 260),
+                        Math.round(Math.random() * 260),
+                        Math.round(Math.random() * 260)
+                    ].join(',') + ')';
+                },
+
+            },
+            emphasis: {
+                focus: 'series',
             }
-        }]
+        }],
+        events: {
+            click: function (params) {
+                // 点击事件处理函数
+                var word = params.name; // 获取点击的词语名称
+                alert('You clicked on: ' + word);
+                // 可以在这里添加更多点击事件的处理逻辑
+            }
+        }
     };
 
     // 使用配置项绘制词云图
@@ -340,7 +352,7 @@
         var firstOption = document.querySelector('.option');
         showContent(firstOption, "{{ news2[0].content }}", '{{ news2[0].title }}', '{{ news2[0].date }}', '{{ news2[0].source }}', '{{ news2[0].detail_url }}');
         var firstOption1 = document.querySelector('.option1');
-        showContent1(firstOption1, "{{ news2[0].content }}", '{{ news2[0].title }}', '{{ news2[0].date }}', '{{ news2[0].source }}', '{{ news2[0].detail_url }}')
+        showContent1(firstOption1, "{{ news[0].content }}", '{{ news[0].title }}', '{{ news[0].date }}', '{{ news[0].source }}', '{{ news[0].detail_url }}')
     }
 
     function showContent(selectedItem, content, title, date, source, detail_url) {

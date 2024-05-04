@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录页</title>
+    <link rel="stylesheet" href="{{ url_for('user.static', filename='css/index.css') }}">
+</head>
+
+<body>
+<section>
+    <div class=" login-box active">
+
+        <div class="login-form">
+            <form action="/user/login" method="post" autocomplete="off">
+                <h2>登录</h2>
+                {% if error!="" %}
+                <div style="margin-top:20px; color: red; display:flex; align-items: center; justify-content: center">{{error}}</div>
+                {% endif %}
+                <div class="inputbox">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <input type="text" id="login-user" name="username" required  autocomplete="off">
+                    <label for="">用户名</label>
+                </div>
+                <div class="inputbox">
+<!--                    <ion-icon name="lock-closed-outline"></ion-icon>-->
+                    <input type="password" id="login-pass" name="password" required  autocomplete="off">
+                    <label for="">密码</label>
+                </div>
+                <div class="forget">
+                    <label for="remember-me">
+                        <input type="checkbox" id="remember-me">记住密码
+                        <a href="#" onclick="goBox('forget')">忘记密码</a>
+                    </label>
+                </div>
+               <input type="submit" class="loginBtn" value="登录"/>
+                <div class="link">
+                    <p>没有账号
+                        <a href="#" onclick="goBox('register')">注册</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="register-box">
+        <div class="register-form">
+            <form action="/user/register" id="register-form" method="post" autocomplete="off">
+                <h2>注册</h2>
+                {% if error!="" %}
+                <div style="margin-top:20px; color: red; display:flex; align-items: center; justify-content: center">{{error}}</div>
+                {% endif %}
+                <div class="inputbox">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="email" id="forget-email" name="email" required  autocomplete="off">
+                    <label for="">邮件</label>
+                </div>
+                <div class="inputbox">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <input type="text" id="register-user"  name="username" required  autocomplete="off">
+                    <label for="">用户名</label>
+                </div>
+                <div class="inputbox">
+<!--                    <ion-icon name="lock-closed-outline"></ion-icon>-->
+                    <input type="password" id="register-pass"  name="password" required  autocomplete="off">
+                    <label for="">密码</label>
+                </div>
+
+                <input type="submit" class="registerBtn" value="注册"/>
+
+                <div class="link">
+                    <p>已有帐号?
+                        <a href="#" onclick="goBox('login')">登录</a>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="forget-box">
+        <div class="forget-form">
+            <form action="" id="forget-form" autocomplete="off">
+                <h2>找回密码</h2>
+
+                <div class="inputbox">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="email" id="forget-email" name="email" required>
+                    <label for="">邮件</label>
+                </div>
+<!--                <div class="inputbox" style="width: 200px;">-->
+<!--                    <ion-icon name="shield-checkmark-outline"></ion-icon>-->
+<!--                    <input type="text" id="forget-code" required>-->
+<!--                    <label for="">输入验证码</label>-->
+<!--                    <button onclick="sendCode()">发生验证码</button>-->
+<!--                </div>-->
+                <div class="inputbox">
+<!--                    <ion-icon name="lock-closed-outline"></ion-icon>-->
+                    <input type="password" id="forget-pass" required  autocomplete="off">
+                    <label for="">新密码</label>
+                </div>
+                <button class="registerBtn" onclick="doUpdate()">更新</button>
+                <div class="link">
+                    <p>已有帐号
+                        <a href="#" onclick="goBox('login')">登录</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // 检查本地存储中的“Remember Me”状态，更新复选框
+        let rememberMeCheckbox = document.getElementById('remember-me');
+
+        if (localStorage.getItem('rememberMe') === 'true') {
+            rememberMeCheckbox.checked = true;
+
+            let user = JSON.parse(localStorage.getItem('user'))
+
+            document.getElementById('login-user').value = user.username
+            document.getElementById('login-pass').value = user.password
+        }
+    });
+
+
+    // 切换登录注册表单
+    function goBox(type) {
+        let loginForm = document.querySelector('.login-box');
+        let registerForm = document.querySelector('.register-box');
+        let forgetPasswordForm = document.querySelector('.forget-box');
+
+        // 首先隐藏所有表单
+        loginForm.classList.remove('active');
+        registerForm.classList.remove('active');
+        forgetPasswordForm.classList.remove('active');
+
+        // 根据目标显示对应的表单
+        if (type === 'register') {
+            registerForm.classList.add('active');
+        } else if (type === 'forget') {
+            forgetPasswordForm.classList.add('active');
+        } else {
+            loginForm.classList.add('active');
+        }
+    }
+
+</script>
+</body>
+
+</html>

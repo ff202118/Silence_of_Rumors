@@ -1,0 +1,257 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    min-height: 100vh;
+    width: 100%;
+    background: url("../img/img.png") no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.login-box,
+.register-box,
+.forget-box {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    -o-transform: translateX(50%);
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+}
+
+.register-box {
+    height: 550px;
+}
+
+
+.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+}
+
+.login-form,
+.register-form,
+.forget-form {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 400px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.register-form {
+    height: 450px;
+    padding: 30px 0 0 0;
+}
+
+.forget-form {
+
+    padding: 30px 0 0 0;
+}
+
+
+h2 {
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+
+.inputbox {
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #fff;
+
+}
+
+
+.inputbox button {
+    position: absolute;
+    right: -110px;
+    top: 8px;
+    width: 100px;
+    height: 40px;
+    font-size: 1em;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.inputbox a:hover {
+    transform: translateY(-10%);
+    -webkit-transform: translateY(-10%);
+    -moz-transform: translateY(-10%);
+    -ms-transform: translateY(-10%);
+    -o-transform: translateY(-10%);
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    box-shadow: 0px 3px 8px -3px #fff;
+
+}
+
+
+.inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #fff;
+    font-size: 1em;
+    pointer-events: none;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transition: .5s;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+    top: -5px;
+}
+
+.inputbox input {
+    -webkit-text-fill-color: white;
+    caret-color:white;
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color: #fff;
+}
+
+.inputbox ion-icon {
+    position: absolute;
+    right: 0;
+    color: #fff;
+    font-size: 1.2em;
+    top: 20px;
+}
+
+.inputbox input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+}
+
+.inputbox input:focus{
+    outline:none;
+    border:none;
+    box-shadow: 0 0 0 2px transparent;
+}
+
+.forget {
+    margin: -15px 0 35px;
+    font-size: .9em;
+    color: #fff;
+}
+
+.forget label input {
+    margin-right: 3px;
+    color: #fff;
+}
+
+.forget label a {
+    margin-left: 5px;
+    font-size: .9em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    float: right;
+}
+
+.forget label :hover {
+    text-decoration: underline;
+}
+
+
+.loginBtn,
+.registerBtn {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+    background: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.link {
+    font-size: .9em;
+    color: #fff;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+/* 让密码输入框右侧的小眼睛一直显示 */
+.inputbox input[type="password"]::-ms-reveal,
+.inputbox input[type="password"]::-webkit-inner-spin-button,
+.inputbox input[type="password"]::-webkit-outer-spin-button {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.link a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: .9em;
+    margin-left: 5px;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
+

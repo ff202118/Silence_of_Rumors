@@ -4,6 +4,7 @@ from .models import News, Rumors, Refute, Category, Follows
 from .utils import get_news_data, get_post_list, get_weight
 from project import db
 from sqlalchemy import cast, Date
+from ..user.views import login_required
 
 # 注意此处蓝图的注册
 bp = Blueprint('news', __name__, url_prefix='/news', static_folder='static', template_folder='templates')
@@ -59,6 +60,39 @@ def search(content):
 
     return render_template('search_list.html', posts=post_list, pagination=pagination, content=content)
 
+@bp.route('index/popular')
+def popular():
+    page = request.args.get('page', 1, type=int)
+    pagination = News.query.order_by(News.like_num.desc(), News.date.desc()).paginate(page=page, per_page=10, error_out=False)
+
+    post_list = pagination.items
+
+    for post in post_list:
+        if post.authority != None :
+            post.authority = post.authority.replace('@', '')
+
+    return render_template('popular.html', posts=post_list, pagination=pagination)
+
+
+@bp.route('index/category/<string:cate>')
+def category(cate):
+    page = request.args.get('page', 1, type=int)
+
+    Type = Category.query.filter(Category.name==cate).first()
+    print(type(Type))
+
+    pagination = News.query.filter(News.category_id==Type.id).order_by(News.date.desc()).paginate(page=page, per_page=10, error_out=False)
+
+    post_list = pagination.items
+
+    for post in post_list:
+        if post.authority != None :
+            post.authority = post.authority.replace('@', '')
+
+    return render_template('category.html', posts=post_list, pagination=pagination, cate=cate)
+
+
+@login_required
 @bp.route('index/')
 def index():
     page = request.args.get('page', 1, type=int)
@@ -75,10 +109,20 @@ def index():
 @bp.route('analysis/')
 def analysis():
     news = Rumors.query.order_by(Rumors.comment_num.desc()).limit(7).all()
-    rumors_rank = Rumors.query.order_by(Rumors.like_num.desc()).limit(14).all()
 
-    for rumor in rumors_rank:
-        rumor.source = rumor.source.replace('@', '')
+    source_counts = db.session.query(Rumors.source, Rumors.source_url, db.func.count(Rumors.id)). \
+        group_by(Rumors.source, Rumors.source_url).order_by(db.func.count(Rumors.id).desc()).limit(12).all()
+
+    rumors_rank = []
+    for item in source_counts:
+        Dict = {}
+        Dict['source'] = item[0].replace('@', '')
+        Dict['source_url'] = item[1]
+        Dict['counts'] = item[2]
+        rumors_rank.append(Dict)
+
+    print(rumors_rank[:2])
+
 
     news_date, news_count = get_news_data(Rumors)
 
@@ -118,10 +162,17 @@ def about_us():
 @bp.route('analysis-refute/')
 def analysis_refute():
     news = Refute.query.order_by(Refute.comment_num.desc()).limit(7).all()
-    rumors_rank = Refute.query.order_by(Refute.like_num.desc()).limit(14).all()
 
-    for rumor in rumors_rank:
-        rumor.source = rumor.source.replace('@', '')
+    source_counts = db.session.query(Refute.source, Refute.source_url, db.func.count(Refute.id)). \
+        group_by(Refute.source, Refute.source_url).order_by(db.func.count(Refute.id).desc()).limit(12).all()
+
+    rumors_rank = []
+    for item in source_counts:
+        Dict = {}
+        Dict['source'] = item[0].replace('@', '')
+        Dict['source_url'] = item[1]
+        Dict['counts'] = item[2]
+        rumors_rank.append(Dict)
 
     news_date, news_count = get_news_data(Refute)
 
@@ -141,21 +192,37 @@ def analysis_refute():
 @bp.route('analysis-summary/')
 def analysis_summary():
 
-    news1 = Rumors.query.order_by(Rumors.comment_num.desc()).limit(14).all()
-    news2 = Refute.query.order_by(Refute.comment_num.desc()).limit(14).all()
+    news1 = Rumors.query.order_by(Rumors.comment_num.desc()).limit(12).all()
+    news2 = Refute.query.order_by(Refute.comment_num.desc()).limit(12).all()
 
-    rumors_rank = Rumors.query.order_by(Rumors.like_num.desc()).limit(14).all()
-    for rumor in rumors_rank:
-        rumor.source = rumor.source.replace('@', '')
+    source_counts = db.session.query(Rumors.source, Rumors.source_url, db.func.count(Rumors.id)). \
+        group_by(Rumors.source, Rumors.source_url).order_by(db.func.count(Rumors.id).desc()).limit(12).all()
 
-    refute_rank = Refute.query.order_by(Refute.like_num.desc()).limit(14).all()
-    for refute in refute_rank:
-        refute.source = refute.source.replace('@', '')
+    rumors_rank = []
+    for item in source_counts:
+        Dict = {}
+        Dict['source'] = item[0].replace('@', '')
+        Dict['source_url'] = item[1]
+        Dict['counts'] = item[2]
+        rumors_rank.append(Dict)
+
+
+
+    source_counts = db.session.query(Refute.source, Refute.source_url, db.func.count(Refute.id)). \
+        group_by(Refute.source, Refute.source_url).order_by(db.func.count(Refute.id).desc()).limit(12).all()
+    refute_rank = []
+    for item in source_counts:
+        Dict = {}
+        Dict['source'] = item[0].replace('@', '')
+        Dict['source_url'] = item[1]
+        Dict['counts'] = item[2]
+        refute_rank.append(Dict)
 
     news_date1, news_count1 = get_news_data(Rumors)
     news_date2, news_count2 = get_news_data(Refute)
 
+    word_weight = get_weight('refute')
 
     return render_template('analysis-summary.html', news=news1, rumors_rank=rumors_rank,
                            news_count1=news_count1, news_date1=news_date1, news2=news2, refute_rank=refute_rank,
-                           news_count2=news_count2, news_date2=news_date2)
+                           news_count2=news_count2, news_date2=news_date2, word_weight=word_weight)

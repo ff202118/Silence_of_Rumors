@@ -33,7 +33,7 @@
 
 <div class="user_info">
     <span>
-        欢迎,&nbsp;&nbsp;David Oliva&nbsp;&nbsp;
+        欢迎,&nbsp;&nbsp;{{ g.user.username }}&nbsp;&nbsp;
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAZFJREFUSEvt1k9LFVEUAPCf+AEqBPdRSNBGXOgiIl0EQd+gRZsgcOFSBHWnILSsjbRo4ycQhDZBfyioCMSF2qL8AEFBtTbjwDwYRufN3DtPRPCsHsw953fvfXfm3CFnFENn5MqFL2GumPQz/E5dQA58BR8xVmD7mMLfFDwFvowlPELg5fiJF1jFnzYTaAs/wFOMNBT9gcfYbMLbwMtYaSpUeT6L9X45TfA0XieiMfwIk/hSl9sPjmdfS4co1X+P2znwfWylapXxE9g+qUa/Fcdh6r2ruf4CnqTCL3EvVyzyNvAwFY5DFYerS7zC3VT4De50UfG2bvL9/uMLOGfXz89WX8cHjOYss5QTTeMWvlXrnHS4bhSnsSvaswKfwV4Zr8LRZw8QvXeQ8QtXy726Csd7G6/RaUTUftcrXIWjlX06DbW4Hn2ug4fxHNcGjH8vbiaHdfCAvfpyTTeQauZ4cauInSnHP0Tv3Wk781Q46kZ/na8Aa1hsi8a4HDjybhYfhvgdH5rdFLQLnOocG5+74s7wf3miPB/OgoyfAAAAAElFTkSuQmCC"
              style="width: 16px;"/>
         登录时间:
@@ -45,9 +45,15 @@
         document.write(str);
     </script>
 
-    <button class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
+    <button id="logout_button" class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
 </div>
 
+<script>
+document.getElementById('logout_button').addEventListener('click', function() {
+    // 在点击按钮时执行以下代码
+    window.location.href = '/user/logout';  // 将页面重定向到 '/logout' 路由
+});
+</script>
 {% endblock navbar %}
 
 {% block sidebar %}
@@ -98,7 +104,7 @@
         overflow-y: auto;
         width: 700px;
         max-height: 400px;
-        color: gray;
+        color: black;
         margin: 20px 60px 20px 20px;
         font-weight: normal;
     }
@@ -144,7 +150,7 @@
 
 </style>
 
-<div class="container" style="background-color: #f5f5fa; font-size: 14px">
+<div class="container" style="background-color: #ebebeb; font-size: 14px;">
 
     <div style="color: #f7671d; font-size: 16px; font-weight: 600;margin-bottom: 20px">
         谣言新闻列表（可溯源）
@@ -153,16 +159,16 @@
     {% if loop.index is even %}
     <div class="list-item" onclick="toggleDetails('item{{ loop.index }}')">
         {% else %}
-         <div class="list-item" onclick="toggleDetails('item{{ loop.index }}')" style="background-color: #f9f9f9">
+         <div class="list-item" onclick="toggleDetails('item{{ loop.index }}')" style="background-color: #d3dfed">
         {% endif %}
             <div class="rate">
                 {{ post.rate }} <span style="font-size: 13px">%</span>
             </div>
         <div style="display: inline-block">
-            <div class="td_title" >
+            <div class="td_title" style="font-weight: 600">
                 {{ post.title }}
             </div>
-            <div class="td_content" style="width: 950px">
+            <div class="td_content" style="width: 950px; font-size: 16px;">
                 {{ post.content }}
             </div>
             <div class="td_bottom">
@@ -175,7 +181,7 @@
     </div>
     <div>
         <div id="item{{ loop.index }}-details" class="details">
-            <div style="text-align: center; color: black; font-size: 20px; font-weight: bold;">
+            <div style="text-align: center; color: black; font-size: 20px; font-weight: bold; font-size: 16px;">
                 {{ post.title }}
             </div>
             <div class="details_title">
@@ -184,13 +190,13 @@
             </div>
 
             <div>
-                <p style="color: #e34856; font-weight: 600; margin: 20px 40px 0 40px;">信息源&nbsp;&nbsp;&nbsp;&nbsp;
+                <p style="color: #e34856; font-weight: 600; margin: 20px 40px 0 40px; font-size: 16px;">信息源&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="{{ post.source_url }}" style="text-decoration: none; color: black">{{ post.source }}</a></p>
-                <p style="color: #e34856; font-weight: 600; margin: 20px 40px 0 40px;">发布时间&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span style="color: black" >{{ post.date }}</span>
+                <p style=" font-size: 16px;color: #e34856; font-weight: 600; margin: 20px 40px 0 40px;">发布时间&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span style=" font-size: 16px; color: black" >{{ post.date }}</span>
                 </p>
 
-                <p class="content">
+                <p class="content" style=" font-size: 16px;">
                     {{ post.content }} <a style="text-decoration: none;" href="{{ post.detail_url }}"> [点击查看详情] </a>
                 </p>
             </div>
@@ -200,7 +206,7 @@
                 ▋ 事件发展轴
                 <hr>
             </div>
-            <div class="details2">
+            <div class="details2" style=" font-size: 16px;">
                 <div  class="details4">
                     {{ post.date }}
                 </div>

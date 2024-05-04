@@ -50,7 +50,7 @@
 
 <div class="user_info">
     <span>
-        欢迎,&nbsp;&nbsp;David Oliva&nbsp;&nbsp;
+        欢迎,&nbsp;&nbsp;{{ g.user.username }}&nbsp;&nbsp;
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAZFJREFUSEvt1k9LFVEUAPCf+AEqBPdRSNBGXOgiIl0EQd+gRZsgcOFSBHWnILSsjbRo4ycQhDZBfyioCMSF2qL8AEFBtTbjwDwYRufN3DtPRPCsHsw953fvfXfm3CFnFENn5MqFL2GumPQz/E5dQA58BR8xVmD7mMLfFDwFvowlPELg5fiJF1jFnzYTaAs/wFOMNBT9gcfYbMLbwMtYaSpUeT6L9X45TfA0XieiMfwIk/hSl9sPjmdfS4co1X+P2znwfWylapXxE9g+qUa/Fcdh6r2ruf4CnqTCL3EvVyzyNvAwFY5DFYerS7zC3VT4De50UfG2bvL9/uMLOGfXz89WX8cHjOYss5QTTeMWvlXrnHS4bhSnsSvaswKfwV4Zr8LRZw8QvXeQ8QtXy726Csd7G6/RaUTUftcrXIWjlX06DbW4Hn2ug4fxHNcGjH8vbiaHdfCAvfpyTTeQauZ4cauInSnHP0Tv3Wk781Q46kZ/na8Aa1hsi8a4HDjybhYfhvgdH5rdFLQLnOocG5+74s7wf3miPB/OgoyfAAAAAElFTkSuQmCC"
              style="width: 16px;"/>
         登录时间:
@@ -62,9 +62,15 @@
         document.write(str);
     </script>
 
-    <button class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
+    <button id="logout_button" class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
 </div>
 
+<script>
+document.getElementById('logout_button').addEventListener('click', function() {
+    // 在点击按钮时执行以下代码
+    window.location.href = '/user/logout';  // 将页面重定向到 '/logout' 路由
+});
+</script>
 {% endblock navbar %}
 
 {% block sidebar %}
@@ -88,13 +94,13 @@
                     <span class="line"></span>
                 </div>
                 <li class="item">
-                    <a href="#" class="link flex">
+                    <a href="{{url_for('news.index')}}" class="link flex">
                         <i class="bx bx-home-alt"></i>
                         <span class="linkname">最新上传</span>
                     </a>
                 </li>
                 <li class="item">
-                    <a href="#" class="link flex">
+                    <a href="{{url_for('news.popular')}}" class="link flex">
                         <i class="bx bx-grid-alt"></i>
                         <span class="linkname">最受关注</span>
                     </a>
@@ -107,20 +113,32 @@
                     <span class="line"></span>
                 </div>
                 <li class="item">
-                    <a href="#" class="link flex">
+                    <a href="{{url_for('news.category', cate='社会')}}" class="link flex">
                         <i class="bx bxs-magic-wand"></i>
                         <span class="linkname">社会</span>
                     </a>
                 </li>
                 <li class="item">
-                    <a href="#" class="link flex">
+                    <a href="{{url_for('news.category', cate='体育')}}" class="link flex">
                         <i class="bx bx-folder"></i>
-                        <span class="linkname">国际</span>
+                        <span class="linkname">体育</span>
                     </a>
                 </li>
                 <li class="item">
-                    <a href="#" class="link flex">
+                    <a href="{{url_for('news.category', cate='科技')}}" class="link flex">
                         <i class="bx bx-cloud-upload"></i>
+                        <span class="linkname">科技</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{url_for('news.category', cate='资讯')}}" class="link flex">
+                        <i class="bx bx-pen"></i>
+                        <span class="linkname">资讯</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{{url_for('news.category', cate='其它')}}" class="link flex">
+                        <i class="bx bx-coffee"></i>
                         <span class="linkname">其他</span>
                     </a>
                 </li>
@@ -133,23 +151,17 @@
                 </div>
 
                 <li class="item">
-                    <a href="#" class="link flex">
+                    <a href="{{url_for('news.analysis_refute')}}" class="link flex">
                         <i class="bx bx-flag"></i>
                         <span class="linkname">官方辟谣</span>
                     </a>
                 </li>
                 <li class="item">
-                    <a href="#" class="link flex">
+                    <a href="{{url_for('news.rumors_follow')}}" class="link flex">
                         <i class="bx bx-award"></i>
                         <span class="linkname">追根溯源</span>
                     </a>
                 </li>
-                <!--                <li class="item">-->
-                <!--                    <a href="#" class="link flex">-->
-                <!--                        <i class="bx bx-cog"></i>-->
-                <!--                        <span>Setting</span>-->
-                <!--                    </a>-->
-                <!--                </li>-->
             </ul>
         </div>
         <div class="sidebar_profile flex">
@@ -157,8 +169,8 @@
           <img src="{{ url_for('news.static', filename='img/profile.png') }}" alt="profile_img">
         </span>
             <div class="data_text">
-                <span class="name">David Oliva</span>
-                <span class="email">david@gmail.com</span>
+                <span class="name">{{ g.user.username }}</span>
+                <span class="email">{{ g.user.email }}</span>
             </div>
         </div>
     </div>
@@ -168,17 +180,17 @@
 
 {% block top_block %}
 <div class="top_block">
-    <div class="top_block_item" style="width: 200px;">
+    <div class="top_block_item" style="width: 200px; font-size: 16px;">
         <span class="top_block_item_title">可信度:</span>
         <!--        <a id="reloadButton" href="#" class="top_block_item_content">全部</a>-->
-        <a  href="{{ url_for('news.rate', rate_cate = 'high') }}" class="top_block_item_content">高</a>
-        <a  href="{{ url_for('news.rate', rate_cate = 'mid') }}" class="top_block_item_content">中</a>
-        <a  href="{{ url_for('news.rate', rate_cate = 'low') }}" class="top_block_item_content">低</a>
+        <a  href="{{ url_for('news.rate', rate_cate = 'high') }}?id=0" class="top_block_item_content" >高</a>
+        <a  href="{{ url_for('news.rate', rate_cate = 'mid') }}?id=1" class="top_block_item_content" >中</a>
+        <a  href="{{ url_for('news.rate', rate_cate = 'low') }}?id=2" class="top_block_item_content" >低</a>
     </div>
-    <div class="top_block_item" style="width: 180px">
+    <div class="top_block_item" style="width: 180px;  font-size: 16px;">
         <span class="top_block_item_title">发布者:</span>
-        <a href="{{ url_for('news.publisher', pub = 'authority') }}" class="top_block_item_content">官方媒体</a>
-        <a href="{{ url_for('news.publisher', pub = 'none-authority') }}" class="top_block_item_content">其它</a>
+        <a href="{{ url_for('news.publisher', pub = 'authority') }}?id=3" class="top_block_item_content" style="width: 100px;">官方媒体</a>
+        <a href="{{ url_for('news.publisher', pub = 'none-authority') }}?id=4" class="top_block_item_content" >其它</a>
     </div>
 
     <div class="top_block_item" style="width: 400px;">
@@ -194,24 +206,34 @@
 
     <div class="top_block_item" style="width: 210px;">
         <span class="top_block_item_title">来源:</span>
-        <a href="{{ url_for('news.index') }}" class="top_block_item_content">全部</a>
+        <a href="{{ url_for('news.index') }}?id=5" class="top_block_item_content" >全部</a>
 <!--        <a href="#" class="top_block_item_content">凤凰网</a>-->
-        <a href="{{ url_for('news.index') }}" class="top_block_item_content">微博</a>
+        <a href="{{ url_for('news.index') }}?id=6" class="top_block_item_content" >微博</a>
     </div>
     <div class="top_block_item" style="width: 260px;margin-left: 30px;">
         <span class="top_block_item_title">时间:</span>
-        <a  href="{{ url_for('news.time', t = 0) }}" class="top_block_item_content">今日</a>
-        <a  href="{{ url_for('news.time', t = 3) }}" class="top_block_item_content">近3天</a>
-        <a  href="{{ url_for('news.time', t = 7) }}" class="top_block_item_content">近7天</a>
-        <a  href="{{ url_for('news.time', t = 30) }}" class="top_block_item_content">近30天</a>
+        <a  href="{{ url_for('news.time', t = 0) }}?id=7" class="top_block_item_content" >今日</a>
+        <a  href="{{ url_for('news.time', t = 3) }}?id=8" class="top_block_item_content" >近3天</a>
+        <a  href="{{ url_for('news.time', t = 7) }}?id=9" class="top_block_item_content" >近7天</a>
+        <a  href="{{ url_for('news.time', t = 30) }}?id=10" class="top_block_item_content" >近30天</a>
     </div>
-    <div class="top_block_item" style="width: 400px;">
+    <div class="top_block_item" style="width: 340px;">
         <span class="top_block_item_title">查找:</span>
         <input class="top_block_item_text" type="text" name="search" id="search" placeholder="请输入搜索关键字">
         <a id="searchLink" href="{{ url_for('news.search', content = '') }}" class="top_block_item_button">搜索</a>
     </div>
 </div>
 
+<script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var id = urlParams.get('id');
+    window.onload = function() {
+        var menuItems = document.getElementsByClassName("top_block_item_content");
+        if(id===null)
+            id=5
+        menuItems[id].classList.add('clicked');
+    }
+</script>
 
 <script>
         var inputElement = document.getElementById('search');
@@ -283,10 +305,10 @@
         <thead class="inner_thead">
         <th scope="col" class="inner_thead_th" style="width: 50px;">可信度</th>
         <th scope="col" class="inner_thead_th" style="width: 550px;">线索原文</th>
-        <th scope="col" class="inner_thead_th" style="width: 120px;">官方</th>
+        <th scope="col" class="inner_thead_th" style="width: 150px;">官方</th>
         <th scope="col" class="inner_thead_th" style="width: 120px;">信息源</th>
         <th scope="col" class="inner_thead_th" style="width: 120px;">实时追踪</th>
-        <th scope="col" class="inner_thead_th" style="width: 120px;">操作</th>
+<!--        <th scope="col" class="inner_thead_th" style="width: 120px;">操作</th>-->
         </thead>
         {% for post in posts %}
         <tbody style="height: 85px">
@@ -296,19 +318,25 @@
         <tr>
             {% endif %}
             <td class="inner_thead_td">
-                <div class="inner_degree">
-                    {{ post.rate }}%
-                </div>
+                {% if post.rate >= 50 %}
+                    <div class="inner_degree">
+                        {{ post.rate }}%
+                    </div>
+                {% else %}
+                    <div class="inner_degree" style="background-color: #e51c23">
+                        {{ post.rate }}%
+                    </div>
+                {% endif %}
             </td>
             <td class="inner_thead_td">
                 <div style="margin-left: 5px">
-                    <div class="td_title">
+                    <div class="td_title" style="font-size: 16px;">
                         <a href="{{ post.detail_url }}" style="text-decoration: none;">{{ post.title }}</a>
                     </div>
-                    <div class="td_content">
+                    <div class="td_content" style="font-size: 16px;">
                         {{ post.content }}
                     </div>
-                    <div class="td_bottom">
+                    <div class="td_bottom" style="font-size: 16px;">
                         <div>
                             {{ post.date }}&nbsp;&nbsp;&nbsp;{{ post.source }}
                         </div>
@@ -318,7 +346,7 @@
 
             <td class="inner_thead_td">
                 <div class="td_medium">
-                    <span style="color: #0f77ea; font-size: 14px">
+                    <span style="color: #4070f4; font-size: 16px">
                         {% if post.authority !=None %}
                             {{ post.authority }}
                         {% endif %}
@@ -327,7 +355,7 @@
             </td>
             <td class="inner_thead_td">
                 <div class="td_medium">
-                    <a href="{{ post.source_url }}" style="text-decoration: none;">{{ post.source }}</a>
+                    <a href="{{ post.source_url }}" style="text-decoration: none;font-size: 16px">{{ post.source }}</a>
                 </div>
             </td>
             <td class="inner_thead_td">

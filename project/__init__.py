@@ -24,6 +24,8 @@ def register_bp(app:Flask):
     from app.news import views as news
     # 注册蓝图
     app.register_blueprint(news.bp)
+    from app.user import views as user
+    app.register_blueprint(user.bp)
     # 首页url 这个的意思是定义整个网站的首页url是 '/', 这个首页来源于news.index, news.index的url是'/news/index'
     app.add_url_rule(rule='/', endpoint='index', view_func=news.index)
 

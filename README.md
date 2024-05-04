@@ -1,4 +1,14 @@
-### -项目简介
-"谣"无音讯 —— 假新闻检测识别系统。  
-项目采用前后端分离技术，前端基于HTML、CSS、Bootscrap、JS等技术，后端采用Flask框架。  
-计划 __平台开发__ 与 **假新闻识别算法研究** 同步进行。  
+### 项目简介
+运行manage.py
+
+### 项目截图
+
+![image-20240504201120188](C:\Users\方家琪\AppData\Roaming\Typora\typora-user-images\image-20240504201120188.png)
+
+![image-20240504200855093](C:\Users\方家琪\AppData\Roaming\Typora\typora-user-images\image-20240504200855093.png)
+
+![image-20240504200936552](C:\Users\方家琪\AppData\Roaming\Typora\typora-user-images\image-20240504200936552.png)
+
+![image-20240504201018497](C:\Users\方家琪\AppData\Roaming\Typora\typora-user-images\image-20240504201018497.png)
+
+![image-20240504201056458](C:\Users\方家琪\AppData\Roaming\Typora\typora-user-images\image-20240504201056458.png)

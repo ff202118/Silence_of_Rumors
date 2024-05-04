@@ -39,7 +39,7 @@
 
 <div class="user_info">
     <span>
-        欢迎,&nbsp;&nbsp;David Oliva&nbsp;&nbsp;
+        欢迎,&nbsp;&nbsp;{{ g.user.username }}&nbsp;&nbsp;
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAZFJREFUSEvt1k9LFVEUAPCf+AEqBPdRSNBGXOgiIl0EQd+gRZsgcOFSBHWnILSsjbRo4ycQhDZBfyioCMSF2qL8AEFBtTbjwDwYRufN3DtPRPCsHsw953fvfXfm3CFnFENn5MqFL2GumPQz/E5dQA58BR8xVmD7mMLfFDwFvowlPELg5fiJF1jFnzYTaAs/wFOMNBT9gcfYbMLbwMtYaSpUeT6L9X45TfA0XieiMfwIk/hSl9sPjmdfS4co1X+P2znwfWylapXxE9g+qUa/Fcdh6r2ruf4CnqTCL3EvVyzyNvAwFY5DFYerS7zC3VT4De50UfG2bvL9/uMLOGfXz89WX8cHjOYss5QTTeMWvlXrnHS4bhSnsSvaswKfwV4Zr8LRZw8QvXeQ8QtXy726Csd7G6/RaUTUftcrXIWjlX06DbW4Hn2ug4fxHNcGjH8vbiaHdfCAvfpyTTeQauZ4cauInSnHP0Tv3Wk781Q46kZ/na8Aa1hsi8a4HDjybhYfhvgdH5rdFLQLnOocG5+74s7wf3miPB/OgoyfAAAAAElFTkSuQmCC"
              style="width: 16px;"/>
         登录时间:
@@ -51,9 +51,15 @@
         document.write(str);
     </script>
 
-    <button class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
+    <button id="logout_button" class="top_block_item_button" style="background-color: #0a0a0a">退出</button>
 </div>
 
+<script>
+document.getElementById('logout_button').addEventListener('click', function() {
+    // 在点击按钮时执行以下代码
+    window.location.href = '/user/logout';  // 将页面重定向到 '/logout' 路由
+});
+</script>
 {% endblock navbar %}
 
 {% block sidebar %}
@@ -94,11 +100,11 @@
 
                 <div class="c-left">
                     <a href="" id="title-display" style="text-decoration: none;"> </a>
-                    <div style="margin: 4px 0 4px 0;font-size: 13px;color: gray">
+                    <div style="margin: 4px 0 4px 0;font-size: 16px;color: gray">
                         <span id="source-display"></span>
                         <span id="date-display"></span>
                     </div>
-                    <div style="color: black;font-size: 14px;" id="content-display">
+                    <div style="color: black;font-size: 15px;" id="content-display">
                     </div>
                 </div>
 
@@ -134,9 +140,9 @@
                     <span class="Rank-id" style="background-color: #FFAC38">{{ loop.index }}</span>
                     {% endif %}
 
-                    <a style="text-decoration: none;color: #1B8ED1;" href="{{ rumor.detail_url }}">
+                    <a style="text-decoration: none;" href="{{ rumor.source_url }}">
                         {{ rumor.source }} </a>
-                    <span style="display: inline-block; float:right;">{{ rumor.like_num }}</span>
+                    <span style="display: inline-block; float:right;">{{ rumor.counts }}</span>
                 </div>
             </div>
             {% endfor %}
